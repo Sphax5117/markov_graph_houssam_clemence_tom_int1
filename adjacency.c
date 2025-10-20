@@ -40,7 +40,7 @@ t_adjacency_list *readGraph(const char *filename) {
     t_adjacency_list *adjList = createAdjacencyList(nbvert);
     
     while (fscanf(file, "%d %d %f", &start, &end, &proba) == 3) {
-        addCell(&adjList->array[start], end, proba);
+        addCell(&adjList->array[start-1], end, proba);
     }
     
     fclose(file);
