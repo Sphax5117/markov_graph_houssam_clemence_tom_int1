@@ -4,8 +4,12 @@
 #include "adjacency.h"
 
 int main() {
-    char filename[100]="C:\\Users\\cleme\\CLionProjects\\markov_graph_houssam_clemence_tom_int1\\data\\exemple1.txt";
-
+    char filename[256];
+    #ifdef _WIN32
+        snprintf(filename, sizeof(filename), "..\\data\\exemple1.txt");
+    #else
+        snprintf(filename, sizeof(filename), "data/exemple1.txt");
+    #endif
     t_adjacency_list * adj;
     adj = readGraph(filename);
     displayAdjacencyList(adj);
