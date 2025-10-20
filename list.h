@@ -6,7 +6,7 @@ typedef struct s_list {
     t_cell *head;
 } t_list;
 
-void list_init(t_list *l);
+t_list * createEmptyList();
 void addCell(t_list *list, int destination, float probability);
 void displayList(const t_list *list);
 #endif
