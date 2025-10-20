@@ -7,6 +7,8 @@ int main() {
     char * filename;
     printf("Filename : ");
     scanf("%s", &filename);
-    readGraph(filename);
+    t_adjacency_list adj;
+    adj = readGraph(filename);
+    displayAdjacencyList(adj);
     return 0;
 }
