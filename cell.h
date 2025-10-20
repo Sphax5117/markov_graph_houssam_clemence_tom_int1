@@ -7,6 +7,6 @@ typedef struct s_cell{
     struct s_cell *next;
 }t_cell;
 
-t_cell *create_cell(int destination, float probability);
+t_cell *createCell(int destination, float probability);
 
 #endif
