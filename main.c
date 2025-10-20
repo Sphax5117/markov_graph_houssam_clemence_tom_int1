@@ -4,7 +4,7 @@
 #include "adjacency.h"
 
 int main() {
-    char filename[100]="data/exemple1.txt";
+    char filename[100]="C:\\Users\\cleme\\CLionProjects\\markov_graph_houssam_clemence_tom_int1\\data\\exemple1.txt";
 
     t_adjacency_list * adj;
     adj = readGraph(filename);
