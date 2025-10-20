@@ -13,7 +13,7 @@ typedef struct s_adjacency_list {
 } t_adjacency_list;
 
 
-t_adjacency_list * createAdjacencyList(int size);
+t_adjacency_list createAdjacencyList(int size);
 t_adjacency_list readGraph(const char *filename);
 void displayAdjacencyList(t_adjacency_list * adj);
 

@@ -2,17 +2,17 @@
 #include "list.h"
 
 
-t_adjacency_list*createAdjacencyList(int size) {
+t_adjacency_list createAdjacencyList(int size) {
 
-        t_adjacency_list*adjList;
-        adjList->size = size;
-        adjList->array = (t_list *)malloc(size * sizeof(t_list));
-        if (adjList->array == NULL) {
+        t_adjacency_list adjList;
+        adjList.size = size;
+        adjList.array = (t_list *)malloc(size * sizeof(t_list));
+        if (adjList.array == NULL) {
                 printf("Error allocating memory for adjacency list\n");
                 exit(1);
         }
         for (int i = 0; i < size; i++) {
-                adjList->array[i].head = NULL;
+                adjList.array[i].head = createEmptyList;
         }
         return adjList;
 
@@ -20,8 +20,8 @@ t_adjacency_list*createAdjacencyList(int size) {
 
 void displayAdjacencyList(t_adjacency_list * adj) {
         for (int i = 0; i < adj->size; i++) {
-
-                printf("List for vertex %d: ",i, displayList(list));
+                printf("List for vertex %d: ",i);
+                displayList(adj);
         }
 
 }
@@ -31,7 +31,7 @@ t_adjacency_list readGraph(const char *filename) {
         int nbvert, start, end;
         float proba;
         //declare the variable for the adjacency list
-        t_adjacency_list *adjList;
+        t_adjacency_list adjList;
         if (file == NULL)
         {
         perror("Could not open file for reading");
@@ -50,10 +50,11 @@ t_adjacency_list readGraph(const char *filename) {
 
         // we obtain, for each line of the file, the values
         // start, end and proba
-        adjList->array[start].head =
+        addCell(adjList.array[start].head, end, proba);
+        
         //Add the edge that runs from 'start' to ‘end’ with the
         //probability 'proba' to the adjacency list
         }
         fclose(file);
-        return ajList;
+        return adjList;
 }
