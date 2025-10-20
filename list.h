@@ -8,7 +8,7 @@ typedef struct s_list{
 
 
 t_list * createEmptyList();
-void addCell(t_list * list, int value);
+void addCell(t_list * list, int destination,float probability);
 void displayList(t_list * list);
 
 #endif

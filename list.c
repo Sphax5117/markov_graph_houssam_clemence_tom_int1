@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 #include "list.h"
 
 t_list * createEmptyList() {
@@ -18,7 +18,7 @@ void addCell(t_list * list, int destination, float probability) {
 void displayList(t_list * list) {
     t_cell * curr;
     curr = list->head;
-    printf("[head @] ->")
+    printf("[head @] ->");
     while(curr) {
         printf("(%d, %d) @->", curr->destination, curr->probability);
         curr++;
