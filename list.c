@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "list.h"
 t_list * createEmptyList() {
-    t_list * list;
+    t_list * list = malloc(sizeof(t_list));
     list->head = NULL;
     return list;
 }
