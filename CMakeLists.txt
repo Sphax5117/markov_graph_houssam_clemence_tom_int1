@@ -9,11 +9,5 @@ add_executable(TI_301_PJT
         cell.c
         hasse.c
         list.c
-        adjacency.h
-        cell.h
-        list.h
-        hasse.h
-        utils.h
-
 )
 
