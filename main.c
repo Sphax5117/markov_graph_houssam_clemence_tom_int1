@@ -1,7 +1,17 @@
 #include <stdio.h>
-
+#include "list.h"
+#include "cell.h"
+#include "adjacency.h"
 
 int main() {
-    printf("Hello, World!\n");
+    char filename[256];
+    #ifdef _WIN32
+        snprintf(filename, sizeof(filename), "..\\data\\exemple1.txt");
+    #else
+        snprintf(filename, sizeof(filename), "data/exemple1.txt");
+    #endif
+    t_adjacency_list * adj;
+    adj = readGraph(filename);
+    displayAdjacencyList(adj);
     return 0;
 }
