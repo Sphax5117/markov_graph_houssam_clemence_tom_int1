@@ -2,28 +2,26 @@
 #include "list.h"
 
 
-t_adjacency_list createAdjacencyList(int size) {
 
-        t_adjacency_list adjList;
-        adjList.size = size;
-        adjList.array = (t_list *)malloc(size * sizeof(t_list));
-        if (adjList.array == NULL) {
-                printf("Error allocating memory for adjacency list\n");
-                exit(1);
-        }
-        for (int i = 0; i < size; i++) {
-                adjList.array[i].head = createEmptyList;
-        }
-        return adjList;
+t_adjacency_list *createAdjacencyList(int size) {
+    t_adjacency_list *adjList = malloc(sizeof *adjList);
+    if (!adjList) { perror("malloc adjList"); exit(1); }
 
-};
+    adjList->size = size;
+    adjList->array = malloc(sizeof *adjList->array * size);
+    if (!adjList->array) { perror("malloc array"); exit(1); }
 
-void displayAdjacencyList(t_adjacency_list * adj) {
-        for (int i = 0; i < adj->size; i++) {
-                printf("List for vertex %d: ",i);
-                displayList(adj);
-        }
+    for (int i = 0; i < size; i++)
+        adjList->array[i].head = NULL;
 
+    return adjList;
+}
+
+void displayAdjacencyList(const t_adjacency_list *adj) {
+    for (int i = 0; i < adj->size; i++) {
+        printf("List for vertex %d:", i + 1);
+        displayList(&adj->array[i]);
+    }
 }
 
 t_adjacency_list readGraph(const char *filename) {

@@ -1,27 +1,21 @@
 #include <stdio.h>
 #include "list.h"
+void list_init(t_list *l) { l->head = NULL; }
 
-t_list * createEmptyList() {
-    t_list * list;
-    list->head = NULL;
-    return list;
-}
-
-
-void addCell(t_list * list, int destination, float probability) {
+void addCell(t_list *list, int destination, float probability) {
+    if (!list) return;
     t_cell *newCell = createCell(destination, probability);
-    newCell->next = list->head;
+    if (!newCell) { fprintf(stderr,"addCell: malloc failed\n"); return; }
+    newCell->next = list->head;   // insertion en tête
     list->head = newCell;
-    return;
 }
 
-void displayList(t_list * list) {
-    t_cell * curr;
-    curr = list->head;
-    printf("[head @] ->");
-    while(curr) {
-        printf("(%d, %d) @->", curr->destination, curr->probability);
-        curr++;
+void displayList(const t_list *list) {
+    const t_cell *curr = list->head;
+    printf(" [head] ->");
+    while (curr) {
+        printf(" (%d, %.2f) @->", curr->destination, curr->probability);
+        curr = curr->next;  // <<< important
     }
-    return;
+    printf(" NULL\n");
 }

@@ -2,14 +2,12 @@
 #define __LIST_H__
 #include "cell.h"
 
-typedef struct s_list{
+typedef struct s_list {
     t_cell *head;
 } t_list;
 
-
-t_list * createEmptyList();
-void addCell(t_list * list, int destination,float probability);
-void displayList(t_list * list);
-//
+void list_init(t_list *l);
+void addCell(t_list *list, int destination, float probability);
+void displayList(const t_list *list);
 #endif
 
