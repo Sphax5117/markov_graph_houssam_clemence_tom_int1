@@ -2,23 +2,23 @@
 #include "list.h"
 
 
-t_adjacency_list createAdjacencyList(int size) {
+t_adjacency_list*createAdjacencyList(int size) {
 
-        t_adjacency_list adjList;
-        adjList.size = size;
-        adjList.array = (list *)malloc(size * sizeof(t_list));
-        if (adjList.array == NULL) {
+        t_adjacency_list*adjList;
+        adjList->size = size;
+        adjList->array = (t_list *)malloc(size * sizeof(t_list));
+        if (adjList->array == NULL) {
                 printf("Error allocating memory for adjacency list\n");
                 exit(1);
         }
         for (int i = 0; i < size; i++) {
-                adjList.array[i].head = NULL;
+                adjList->array[i].head = NULL;
         }
         return adjList;
 
 };
 
-void displayAdjacencyList(adjacency_list * adj) {
+void displayAdjacencyList(t_adjacency_list * adj) {
         for (int i = 0; i < adj->size; i++) {
 
                 printf("List for vertex %d: ",i, displayList(list));
@@ -44,13 +44,13 @@ t_adjacency_list readGraph(const char *filename) {
         exit(EXIT_FAILURE);
         }
         //Initialise an empty adjacency list using the number of vertices
-        ajList = createAdjacencyList(nbvert);
+        adjList = createAdjacencyList(nbvert);
         while (fscanf(file, "%d %d %f", &start, &end, &proba) == 3)
         {
 
         // we obtain, for each line of the file, the values
         // start, end and proba
-        adjList.array[start].head = 
+        adjList->array[start].head =
         //Add the edge that runs from 'start' to ‘end’ with the
         //probability 'proba' to the adjacency list
         }
