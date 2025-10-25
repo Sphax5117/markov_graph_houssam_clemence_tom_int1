@@ -8,5 +8,8 @@ add_executable(TI_301_PJT
         adjacency.c
         cell.c
         list.c
+        utils.c
+        mermaid.c
+        markov.c
 )
 

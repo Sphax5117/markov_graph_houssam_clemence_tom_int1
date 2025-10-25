@@ -3,11 +3,12 @@
 #include <string.h>
 
 #include "utils.h"
-
-static char *getID(int i)
+char *getID(int i)
 {
     // translate from 1,2,3, .. ,500+ to A,B,C,..,Z,AA,AB,...
-    static char buffer[10];
+    char *buffer = malloc(10); //had to change from static to dynamic, as two simulataneous call with different parameters would give the same result
+    if (buffer == NULL) return NULL;
+    
     char temp[10];
     int index = 0;
 

@@ -16,5 +16,6 @@ int main() {
     } else {
         printf("The graph is not a Markov Graph\n");
     }
+    mermaidGenerator(adj);
     return 0;
 }
