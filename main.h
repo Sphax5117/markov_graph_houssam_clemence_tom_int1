@@ -5,5 +5,5 @@
 #include "cell.h"
 #include "adjacency.h"
 #include "markov.h"
-
+#include "mermaid.h"
 #endif
