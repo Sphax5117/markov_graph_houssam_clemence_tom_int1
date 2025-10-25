@@ -6,7 +6,7 @@
 int main() {
     char filename[256];
     #ifdef _WIN32
-        snprintf(filename, sizeof(filename), "..\\data\\exemple1.txt");
+        snprintf(filename, sizeof(filename), "..\\data\\exemple1.txgtt");
     #else
         snprintf(filename, sizeof(filename), "data/exemple1.txt");
     #endif
