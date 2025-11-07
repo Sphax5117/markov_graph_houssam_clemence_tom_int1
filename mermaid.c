@@ -16,7 +16,7 @@ void mermaidGenerator(t_adjacency_list * adj) {
     for (int j = 0; j < adj->size;j++) {
         const t_cell *curr = adj->array[j].head;;
         while (curr) {
-            printf("%d",j);
+
             fprintf(file, "%s -->|%.2f|%s\n",getID(j+1), curr->probability, getID(curr->destination));
             curr = curr->next; 
         }
