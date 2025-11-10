@@ -8,7 +8,7 @@
 #include "stack.h"
 //algo réccursif donc il doit sauvegarder les indo
 typedef struct s_tarjan_vertex{
-    int id;
+    int id; //nb of the vertex 
     int number;
     int accessnb;
     int boolind;

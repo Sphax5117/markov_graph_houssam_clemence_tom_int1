@@ -30,9 +30,26 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){//creation of an array
    // renvoyer partition
 // fin de fonction
 
-void tarjan()
+t_partition tarjan(t_adjacency_list * graph) {
+    int num = 0;
+    t_stack * stack = createStack();
+    t_partition * partition = createPartition();
+    t_tarjan_vertex * vertices = tarjanArr(graph);
 
-t_tarjan_vertex parcours(t_tarjan_vertex v, t_stack * stack, t_partition partition) {
+    if(vertices==NULL){
+        perror("error");
+        exit(EXIT_FAILURE);
+    }
+    for (int i=1;i<=n;i++){
+            vertices[i].id  = i;
+            if (vertices[i].number = -1) {
+                partition = parcours(vertices, stack, partition);
+            }
+    }
+    return partition;
+}
+
+t_partition parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition) {
     int num = 0;
     v.number = num;
     v.accessnb = num;
