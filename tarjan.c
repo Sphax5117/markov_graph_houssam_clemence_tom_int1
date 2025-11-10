@@ -31,7 +31,6 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){//creation of an array
 // fin de fonction
 
 t_partition tarjan(t_adjacency_list * graph) {
-    int num = 0;
     t_stack * stack = createStack();
     t_partition * partition = createPartition();
     t_tarjan_vertex * vertices = tarjanArr(graph);
@@ -41,31 +40,31 @@ t_partition tarjan(t_adjacency_list * graph) {
         exit(EXIT_FAILURE);
     }
     for (int i=1;i<=graph->size;i++){
-            vertices[i].id  = i;
+            vertices[i].id  = i;    
             if (vertices[i].number = -1) {
-                partition = parcours(vertices, stack, partition);
+                partition = parcours(vertices, stack, partition, graph);
             }
     }
     return partition;
 }
 
-t_partition parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition) {
+t_partition parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph) {
     int num = 0;
-    v.number = num;
-    v.accessnb = num;
+    v->number = num;
+    v->accessnb = num;
     num++;
-    pushStack(v.number, stack);
-    v.boolind =1;
+    pushStack(v->number, stack);
+    v->boolind =1;
     for () //chaque w successeur de v 
 
     // check in adjacency list the successors of the id of v
     // go for each one of them 
     {
-        if (w.number == NULL) {
+        if (w->number == NULL) {
             parcours(w);
-            v.accessnb = minimum(v.accessnb, w.accessnb);
+            v->accessnb = minimum(v->accessnb, w.accessnb);
         } else {
-            v.accessnb = minimum(v.accessnb, w.number);
+            v->accessnb = minimum(v->accessnb, w.number);
         }
     }
     if (v.accessnb == v.number) {
