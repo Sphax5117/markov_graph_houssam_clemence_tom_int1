@@ -1,6 +1,5 @@
 #include "stack.h"
 
-
 int isEmptyStack(t_stack stack) {
     int res, nbElems;
     nbElems = stack.nbElts;
@@ -11,6 +10,7 @@ int isEmptyStack(t_stack stack) {
     }
     return res;
 }
+
 
 
 int pop(t_stack *p_stack) {
