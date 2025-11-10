@@ -40,7 +40,7 @@ t_partition tarjan(t_adjacency_list * graph) {
         perror("error");
         exit(EXIT_FAILURE);
     }
-    for (int i=1;i<=n;i++){
+    for (int i=1;i<=graph->size;i++){
             vertices[i].id  = i;
             if (vertices[i].number = -1) {
                 partition = parcours(vertices, stack, partition);
