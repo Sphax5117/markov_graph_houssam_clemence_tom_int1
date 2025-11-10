@@ -29,8 +29,7 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){//creation of an array
 
    // renvoyer partition
 // fin de fonction
-
-t_partition tarjan(t_adjacency_list * graph) {
+void tarjan(t_adjacency_list * graph) {
     int * num;
     num = 0;
     t_stack * stack = createStack();
@@ -43,20 +42,20 @@ t_partition tarjan(t_adjacency_list * graph) {
     }
     for (int i=1;i<=graph->size;i++){
             vertices[i].id  = i;    
-            if (vertices[i].number = -1) {
-                parcours(vertices, stack, partition, graph, num));
+            if (vertices[i].number == -1) {
+                parcours(&vertices[i], stack, partition, graph, num);
             }
     }
     return partition;
 }
 
-t_partition parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int * num) {
+void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int * num) {
     v->number = num;
     v->accessnb = num;
     num++;
     pushStack(v->number, stack);
     v->boolind =1;
-    for () //chaque w successeur de v 
+    for ()  //chaque w successeur de v 
 
     // check in adjacency list the successors of the id of v
     // go for each one of them 
@@ -75,7 +74,7 @@ t_partition parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partiti
             w.boolind = 0;
             addToClass(w);
         }
-        return partition, C
+        addToPartition(partition, C)
 
 
     //pour chaque sommet v de G
