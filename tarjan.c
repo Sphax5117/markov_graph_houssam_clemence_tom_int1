@@ -30,6 +30,8 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){//creation of an array
    // renvoyer partition
 // fin de fonction
 
+void tarjan()
+
 t_tarjan_vertex parcours(t_tarjan_vertex v, t_stack * stack, t_partition partition) {
     int num = 0;
     v.number = num;
@@ -63,22 +65,3 @@ t_tarjan_vertex parcours(t_tarjan_vertex v, t_stack * stack, t_partition partiti
     // si v.num n est pas défini
     //parcours(v)
    }
-
- 
-     // Parcours récursif
-     pour chaque w successeur de v
-       si w.num n est pas défini
-         parcours(w)
-         v.numAccessible := min(v.numAccessible, w.numAccessible)
-       sinon si w.dansP = oui
-         v.numAccessible := min(v.numAccessible, w.num)
- 
-     si v.numAccessible = v.num
-       // v est une racine, on calcule la composante fortement connexe associée
-       C := ensemble vide
-       répéter
-         w := P.pop(), w.dansP := non
-         ajouter w à C
-       tant que w différent de v
-       ajouter C à partition
-   fin de fonction
