@@ -49,14 +49,15 @@ void tarjan(t_adjacency_list * graph) {
     return partition;
 }
 
-void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int * num) {
-    v->number = num;
-    v->accessnb = num;
-    num++;
+void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
+    v->number = *p_num;
+    v->accessnb = *p_num;
+    (*p_num)++;
     pushStack(v->number, stack);
     v->boolind =1;
     for ()  //chaque w successeur de v 
 
+    // id -> number of vertex in the adjency list.
     // check in adjacency list the successors of the id of v
     // go for each one of them 
     {
