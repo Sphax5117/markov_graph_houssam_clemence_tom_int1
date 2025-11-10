@@ -5,6 +5,7 @@
 #ifndef INC_2526_TI301_PJT_TARJAN_H
 #define INC_2526_TI301_PJT_TARJAN_H
 #include "adjacency.h"
+#include "stack.h"
 //algo réccursif donc il doit sauvegarder les indo
 typedef struct s_tarjan_vertex{
     int id;

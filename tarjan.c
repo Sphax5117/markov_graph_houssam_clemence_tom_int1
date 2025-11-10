@@ -19,3 +19,66 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){//creation of an array
     }
     return vertices;
 }
+
+
+//fonction tarjan(graphe G)
+  // num := 0
+   //P := pile vide
+   //partition := ensemble vide
+
+
+   // renvoyer partition
+// fin de fonction
+
+t_tarjan_vertex parcours(t_tarjan_vertex v, t_stack * stack, t_partition partition) {
+    int num = 0;
+    v.number = num;
+    v.accessnb = num;
+    num++;
+    pushStack(v.number, stack);
+    v.boolind =1;
+    for () //chaque w successeur de v 
+
+    // check in adjacency list the successors of the id of v
+    // go for each one of them 
+    {
+        if (w.number == NULL) {
+            parcours(w);
+            v.accessnb = minimum(v.accessnb, w.accessnb);
+        } else {
+            v.accessnb = minimum(v.accessnb, w.number);
+        }
+    }
+    if (v.accessnb == v.number) {
+        t_class C = createEmptyClass()
+        while (w != v) {//weird 
+            w = pop(stacks);
+            w.boolind = 0;
+            addToClass(w);
+        }
+        addToPartition(partition, C);
+
+
+    //pour chaque sommet v de G
+    // si v.num n est pas défini
+    //parcours(v)
+   }
+
+ 
+     // Parcours récursif
+     pour chaque w successeur de v
+       si w.num n est pas défini
+         parcours(w)
+         v.numAccessible := min(v.numAccessible, w.numAccessible)
+       sinon si w.dansP = oui
+         v.numAccessible := min(v.numAccessible, w.num)
+ 
+     si v.numAccessible = v.num
+       // v est une racine, on calcule la composante fortement connexe associée
+       C := ensemble vide
+       répéter
+         w := P.pop(), w.dansP := non
+         ajouter w à C
+       tant que w différent de v
+       ajouter C à partition
+   fin de fonction
