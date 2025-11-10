@@ -1,7 +1,7 @@
 #include "mermaid.h"
 
 
-
+//Part 3
 void mermaidGenerator(t_adjacency_list * adj) {
     FILE *file = fopen("mermaid.txt", "w");
     if (file == NULL) {
