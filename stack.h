@@ -8,3 +8,4 @@ struct s_stack {
 typedef struct s_stack t_stack;
 
 int isEmptyStack(t_stack stack);
+int pop(t_stack *p_stack);
