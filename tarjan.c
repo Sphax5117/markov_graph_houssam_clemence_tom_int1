@@ -83,6 +83,7 @@ void addToClass(t_class *C, t_tarjan_vertex *v) {
                     exit(EXIT_FAILURE);
                 }
                 if (C->size >= C->capacity) {
+                    printf("%d", C->size);
                     perror("error: class is full");
                     exit(EXIT_FAILURE);
                 }
