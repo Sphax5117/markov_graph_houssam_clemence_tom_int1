@@ -11,6 +11,6 @@ add_executable(TI_301_PJT
         utils.c
         mermaid.c
         markov.c
-
+        stack.c
+        tarjan.c
 )
-

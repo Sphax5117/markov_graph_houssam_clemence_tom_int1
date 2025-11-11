@@ -26,9 +26,12 @@ int pop(t_stack *p_stack) {
     }
 }
 
-t_stack createStack(int nbElts) {
-    t_stack stack;
-    stack.nbElts = 0;
+t_stack * createStack(int nbElts) {
+    t_stack * stack = (t_stack *)malloc(sizeof(t_stack));
+    if (stack == NULL) {
+        return NULL;
+    }
+    stack->nbElts = 0;
     return stack;
 }
 

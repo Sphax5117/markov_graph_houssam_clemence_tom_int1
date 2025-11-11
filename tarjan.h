@@ -30,5 +30,8 @@ typedef struct s_partition{
 }t_partition;
 
 t_tarjan_vertex*tarjanArr(t_adjacency_list*graph);
+void displayTarjan(t_tarjan_vertex * vertices, int size);
+void tarjan(t_adjacency_list * graph);
+void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num);
 
 #endif //INC_2526_TI301_PJT_TARJAN_H

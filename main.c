@@ -9,6 +9,7 @@ int main() {
         snprintf(filename, sizeof(filename), "data/exemple3.txt");
     #endif
     t_adjacency_list * adj;
+    printf("PART 1 - BEGINNING OF THE TESTS\n");
     adj = readGraph(filename);
     displayAdjacencyList(adj);
     if (isMarkovGraph(adj)) {
@@ -17,5 +18,10 @@ int main() {
         printf("The graph is not a Markov Graph\n");
     }
     mermaidGenerator(adj);
+    printf("PART 2 - BEGINNING OF THE TESTS\n");
+    t_tarjan_vertex * tarjan_v;
+    tarjan_v = tarjanArr(adj);
+    displayTarjan(tarjan_v, adj->size);
+    tarjan(adj);
     return 0;
 }
