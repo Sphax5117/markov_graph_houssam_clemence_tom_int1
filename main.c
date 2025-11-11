@@ -23,5 +23,6 @@ int main() {
     tarjan_v = tarjanArr(adj);
     displayTarjan(tarjan_v, adj->size);
     tarjan(adj);
+    displayTarjan(tarjan_v, adj->size);
     return 0;
 }

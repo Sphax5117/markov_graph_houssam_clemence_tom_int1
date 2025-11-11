@@ -61,43 +61,66 @@ void tarjan(t_adjacency_list * graph) {
     return;
 }
 
+t_class * createClass(t_adjacency_list * graph) {
+        t_class *C = (t_class *)malloc(sizeof(t_class));
+        if (C == NULL) {
+            perror("error");
+            exit(EXIT_FAILURE);
+        }
+        C->vertices = (t_tarjan_vertex *)malloc(graph->size * sizeof(t_tarjan_vertex));
+        if (C->vertices == NULL) {
+            perror("error");
+            exit(EXIT_FAILURE);
+        }
+        C->size = 0;
+        C->capacity = graph->size;
+        return C;
+}
+
+void addToClass(t_class *C, t_tarjan_vertex *v) {
+                if (C == NULL || v == NULL) {
+                    perror("error");
+                    exit(EXIT_FAILURE);
+                }
+                if (C->size >= C->capacity) {
+                    perror("error: class is full");
+                    exit(EXIT_FAILURE);
+                }
+                C->vertices[C->size] = *v;
+                C->size++;
+}
+
 void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
+    printf("iteration aaa\n");
     v->number = *p_num;
     v->accessnb = *p_num;
     (*p_num)++;
     pushStack(v->number, stack);
     v->boolind =1;
     t_cell * current = graph->array[v->id].head;
+    t_tarjan_vertex * w;
     while (current != NULL) {
         printf("Vertex %d -> %d\n", v->id, current->destination);
+        w = &v[current->destination]; //current destination -> successor of v.
+            if (w->number == -1) { //if w number is null(initalize to -1)
+                parcours(w, stack, partition, graph, p_num);
+                if (v->accessnb < w->accessnb) {
+                    v->accessnb = v->accessnb;
+                } else {
+                    v->accessnb = w->number;
+                }
+            }
         current = current->next;
     }
+    if (v->accessnb == v->number) {
+        t_class * C = createClass(graph);
+        while(w->id != v->id) {
+            w->number = pop(stack);
+            w->boolind = 1;
+            addToClass(C, w);
+        }
+        partition->classes = C;
+        partition->size +=1;
+    }
     return;
-    // }
-    // for ()  //chaque w successeur de v 
-
-    // // id -> number of vertex in the adjency list.
-    // // check in adjacency list the successors of the id of v
-    // // go for each one of them 
-    // {
-    //     if (w->number == NULL) {
-    //         parcours(w);
-    //         v->accessnb = minimum(v->accessnb, w.accessnb);
-    //     } else {
-    //         v->accessnb = minimum(v->accessnb, w.number);
-    //     }
-    // }
-    // if (v->accessnb == v->number) {
-    //     t_class C = createEmptyClass()
-    //     while (w != v) {//weird 
-    //         w = pop(stacks);
-    //         w.boolind = 0;
-    //         addToClass(w);
-    //     }
-    //     addToPartition(partition, C)
-
-
-    // //pour chaque sommet v de G
-    // // si v.num n est pas défini
-    // //parcours(v)
-   }
+}

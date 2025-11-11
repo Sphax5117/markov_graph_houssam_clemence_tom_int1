@@ -6,6 +6,7 @@
 #define INC_2526_TI301_PJT_TARJAN_H
 #include "adjacency.h"
 #include "stack.h"
+
 //algo réccursif donc il doit sauvegarder les indo
 typedef struct s_tarjan_vertex{
     int id; //nb of the vertex 
@@ -33,5 +34,8 @@ t_tarjan_vertex*tarjanArr(t_adjacency_list*graph);
 void displayTarjan(t_tarjan_vertex * vertices, int size);
 void tarjan(t_adjacency_list * graph);
 void parcours(t_tarjan_vertex * v, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num);
+
+void addToClass(t_class *C, t_tarjan_vertex *v);
+t_class * createClass(t_adjacency_list * graph);
 
 #endif //INC_2526_TI301_PJT_TARJAN_H
