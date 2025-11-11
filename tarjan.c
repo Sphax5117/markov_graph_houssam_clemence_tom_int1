@@ -105,19 +105,21 @@ void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, 
     (*p_num)++;
     pushStack(v->id, stack);
     v->boolind =1;
-    t_cell * current = graph->array[v->id].head;
+    t_cell * current = graph->array[v->id -1].head;
     t_tarjan_vertex * w;
     while (current != NULL) {
         printf("Vertex %d -> %d\n", v->id, current->destination);
         w = &vertices[current->destination]; //current destination -> successor of v.
-            if (w->number == -1) { //if w number is null(initalize to -1)
-                parcours(w, vertices, stack, partition, graph, p_num);
-                if (v->accessnb < w->accessnb) {
-                    v->accessnb = v->accessnb;
-                } else {
-                    v->accessnb = w->accessnb;
-                }
+        if (w->number == -1) {
+            parcours(w, vertices, stack, partition, graph, p_num);
+            if (w->accessnb < v->accessnb) {
+                v->accessnb = w->accessnb;
             }
+        } else if (w->boolind == 1) {
+            if (w->number < v->accessnb) {
+                v->accessnb = w->number;
+            }
+        }
         current = current->next;
     }
     if (v->accessnb == v->number) {
