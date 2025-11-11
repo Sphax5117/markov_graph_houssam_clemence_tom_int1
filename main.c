@@ -4,9 +4,9 @@
 int main() {
     char filename[256];
     #ifdef _WIN32
-        snprintf(filename, sizeof(filename), "..\\data\\exemple3.txt");
+        snprintf(filename, sizeof(filename), "..\\data\\exemple_valid_step3.txt");
     #else
-        snprintf(filename, sizeof(filename), "data/exemple3.txt");
+        snprintf(filename, sizeof(filename), "data/exemple_valid_step3.txt");
     #endif
     t_adjacency_list * adj;
     printf("PART 1 - BEGINNING OF THE TESTS\n");
@@ -19,10 +19,8 @@ int main() {
     }
     mermaidGenerator(adj);
     printf("PART 2 - BEGINNING OF THE TESTS\n");
-    t_tarjan_vertex * tarjan_v;
-    tarjan_v = tarjanArr(adj);
-    displayTarjan(tarjan_v, adj->size);
-    tarjan(adj);
-    displayTarjan(tarjan_v, adj->size);
+    t_partition * partition = tarjan(adj);
+    displayTarjan(partition);
+    
     return 0;
 }
