@@ -21,6 +21,19 @@ int main() {
     printf("PART 2 - BEGINNING OF THE TESTS\n");
     t_partition * partition = tarjan(adj);
     displayTarjan(partition);
+
+    int *vertex_to_class = malloc((adj->size + 1) * sizeof(int));
+    if (vertex_to_class == NULL) {
+        perror("malloc vertex_to_class");
+        exit(EXIT_FAILURE);
+    }
+    createvertextoclass(partition, vertex_to_class, adj->size);
+    t_link_array links;
+    Linkslist(partition, adj, vertex_to_class, &links);
+    graphCharacteristics(partition, &links);
+
+    free(vertex_to_class);
+    free(links.links);
     
     return 0;
 }

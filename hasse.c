@@ -1,49 +1,127 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "hasse.h"
 
 
-//void removeTransitiveLinks(t_link_array *p_link_array)
+//structure innitialisée pour les liens
+void initLink(t_link_array *la)
 {
-    int i = 0;
-    while (i < p_link_array->log_size)
-    {
-        t_link link1 = p_link_array->links[i];
-        int j = 0;
-        int to_remove = 0;
-        while (j < p_link_array->log_size && !to_remove)
-        {
-            if (j != i)
-            {
-                t_link link2 = p_link_array->links[j];
-                if (link1.from == link2.from)
-                {
-                    // look for a link from link2.to to link1.to
-                    int k = 0;
-                    while (k < p_link_array->log_size && !to_remove)
-                    {
-                        if (k != j && k != i)
-                        {
-                            t_link link3 = p_link_array->links[k];
-                            if ((link3.from == link2.to) && (link3.to == link1.to))
-                            {
-                                to_remove = 1;
-                            }
-                        }
-                        k++;
-                    }
-                }
-            }
-            j++;
-        }
-        if (to_remove)
-        {
-            // remove link1 by replacing it with the last link
-            p_link_array->links[i] = p_link_array->links[p_link_array->log_size - 1];
-            p_link_array->log_size--;
-        }
-        else
-        {
-            i++;
+    la->log_size = 0;
+    la->size = 10; //nb de lien utilisé(au pif 10)
+    la->links = malloc(la->size * sizeof(t_link));//taille du tableau(allocation pour les 10 t_link)
+
+    if (!la->links) {
+        perror("malloc link_array");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void addLink(t_link_array *la, int from, int to)
+{
+    // vérifier si lien exist
+    for (int i = 0; i < la->log_size; i++) {
+        if (la->links[i].from == from && la->links[i].to == to)
+            return; // déjà présent
+    }
+
+    // Si pas de place
+    if (la->log_size == la->size) {
+        la->size *= 2;
+        la->links = realloc(la->links, la->size * sizeof(t_link));
+        if (!la->links) {
+            perror("realloc link_array");
+            exit(EXIT_FAILURE);
         }
     }
+
+    la->links[la->log_size].from = from;
+    la->links[la->log_size].to = to;
+    la->log_size++;
+}
+//Cette fonction fait ce que dit le PDF :
+//If the link Ci,Cj does not exist
+//Add the link Ci,Cj to the structure that stores the links
+// Elle :
+//vérifie si le lien existe déjà
+//agrandit le tableau si besoin
+//ajoute le lien à la fin
+
+void createvertextoclass(t_partition *p, int *vertextoclass, int nb_vertices)
+{
+    for (int i = 0; i <= nb_vertices; i++)
+        vertextoclass[i] = -1;
+
+    for (int c = 0; c < p->size; c++) {
+        for (int k = 0; k < p->classes[c].size; k++) {
+            int v = p->classes[c].vertices[k].id;
+            vertextoclass[v] = c;
+        }
+    }
+}
+// la traduction directe de ce que dit le PDF :
+//Create an array that indicates, for each vertex of the graph, the class to which it belongs.
+void Linkslist(t_partition *p, t_adjacency_list *graph,int *vertextoclass, t_link_array *links)
+{
+    initLink(links);
+
+    for (int i = 1; i <= graph->size; i++) {
+        int Ci = vertextoclass[i];
+
+        t_cell *cur = graph->array[i - 1].head;
+
+        while (cur != NULL) {
+
+            int j = cur->destination;
+            int Cj = vertextoclass[j];
+
+            if (Ci != Cj)
+                addLink(links, Ci, Cj);
+
+            cur = cur->next;
+        }
+    }
+}
+//pseudocode du pro:For each vertex i in the graph
+//   Ci = class to which i belongs
+//   For all vertices j in adjacency list of vertex i
+//      Cj = class to which j belongs
+//      If Ci is different from Cj
+//         If link (Ci,Cj) does not exist
+//            Add link (Ci,Cj)
+
+
+void graphCharacteristics(t_partition *p, t_link_array *links)
+{
+    printf("\nPART 3 - BEGINNING OF THE TESTS\n");
+
+    int found_absorbing = 0;
+
+    for (int c = 0; c < p->size; c++) {
+
+        int has_outgoing = 0;
+
+        for (int i = 0; i < links->log_size; i++) {
+            if (links->links[i].from == c)
+                has_outgoing = 1;
+        }
+
+        if (has_outgoing)
+            printf("Class C%d: transient\n", c + 1);
+        else
+            printf("Class C%d: persistent\n", c + 1);
+
+        if (!has_outgoing && p->classes[c].size == 1) {
+            int s = p->classes[c].vertices[0].id;
+            printf("  -> absorbing state: %d\n", s);
+            found_absorbing = 1;
+        }
+    }
+
+    if (!found_absorbing)
+        printf("\nNo absorbing states.\n");
+
+    if (p->size == 1)
+        printf("\nThe Markov graph is irreducible.\n");
+    else
+        printf("\nThe Markov graph is NOT irreducible.\n");
 }
