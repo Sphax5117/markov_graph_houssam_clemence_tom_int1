@@ -40,21 +40,21 @@ t_matrix* createEmptyMatrix(int n) {
     return result;
 }
 
-void copyMatrix(t_matrix dest, t_matrix src) {
+void * copyMatrix(t_matrix * dest, t_matrix * src) {
     //on verifie la taille de la matrice source et la matrice de destination
-    if (dest.nbrows != src.nbrows || dest.nbcols != src.nbcols) {
+    if (dest->nbrows != src->nbrows || dest->nbcols != src->nbcols) {
         fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");
         return;
     }
 
     // ici on cosidure que la pour realiser les copies des valeurs de la matrice on prend la taille des lignes
-    int n = src.nbrows;
+    int n = src->nbrows;
 
 
     for (int i = 0; i < n; i++) {       // ca parcourt les lignes
         for (int j = 0; j < n; j++) {   // et les colonnes
             // L'opération de copie elle-même
-            dest.data[i][j] = src.data[i][j];
+            dest->data[i][j] = src->data[i][j];
         }
     }
 }
@@ -67,9 +67,9 @@ t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
     for (int i = 0; i < adj->size; i++) {
         const t_cell *curr = adj->array[i].head;
             while (curr) {
-                int j = curr->destination; 
+                int j = curr->destination -1; //-1 bcs our nodes start at 1
                 //as we only need to fill nodes connected to the 1st, the 2nd, etc...
-                // we use only the destinations as indexes.
+                // we use only the destinations as indexes (at first, i was going for a double for loop, but Gemini 3 Pro advised me to do that which is way smart and efficient)
             if (j >= 0 && j < matrix->nbcols) { //we check that we don't fill non-existent spots in the matrix
                 matrix->data[i][j] = curr->probability;
             }
@@ -77,4 +77,24 @@ t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
         }
     }
     return matrix;
+}
+t_matrix *multiply_matrices(t_matrix * M, t_matrix * N) {
+    // Dans ce contexte, on suppose n x n. On vérifie juste les dimensions.
+    if (M->nbcols != N->nbrows) {
+        fprintf(stderr, "Erreur: Les matrices ne sont pas compatibles pour la multiplication.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int n = M->nbrows; 
+    t_matrix * R = createEmptyMatrix(n); 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            float sum = 0.0f;
+            for (int k = 0; k < n; k++) {
+                sum += M->data[i][k] * N->data[k][j];
+            }
+            R->data[i][j] = sum;
+        }
+    }
+    return R;
 }
