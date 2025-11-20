@@ -40,7 +40,7 @@ t_matrix* createEmptyMatrix(int n) {
     return result;
 }
 
-void * copyMatrix(t_matrix * dest, t_matrix * src) {
+void  copyMatrix(t_matrix * dest, t_matrix * src) {
     //on verifie la taille de la matrice source et la matrice de destination
     if (dest->nbrows != src->nbrows || dest->nbcols != src->nbcols) {
         fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");

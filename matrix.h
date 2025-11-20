@@ -15,7 +15,7 @@ typedef struct {
 } t_matrix;
 
 t_matrix * createEmptyMatrix(int n);
-void *copyMatrix(t_matrix * destination, t_matrix * source);
+void copyMatrix(t_matrix * destination, t_matrix * source);
 float matrixDifference(t_matrix * matrixA, t_matrix * matrixB);
 t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj);
 t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N);
