@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "mermaid.h": "c"
+        "mermaid.h": "c",
+        "queue": "c",
+        "stack": "c"
     }
 }

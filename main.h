@@ -6,4 +6,5 @@
 #include "adjacency.h"
 #include "markov.h"
 #include "mermaid.h"
+#include "tarjan.h"
 #endif
