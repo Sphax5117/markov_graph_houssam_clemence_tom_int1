@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "adjacency.h"
+#include "tarjan.h"
 
 typedef struct {
     int nbrows;

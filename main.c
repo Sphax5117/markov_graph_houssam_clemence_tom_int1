@@ -40,9 +40,34 @@ int main() {
     printf("PART 3 - BEGINNING OF THE TESTS\n");
     t_adjacency_list * adj2;
     adj2 = readGraph(filename2);
-    t_matrix * m;
-    m = createMatrixFromAdjacency(adj2);
-    displayMatrix(m);
-    
+    t_matrix * m1;
+    m1 = createMatrixFromAdjacency(adj2);
+    displayMatrix(m1);
+    t_matrix *current_matrix = m1;
+    for (int i = 1; i < 7; i++) {
+        t_matrix *next_matrix = multiplyMatrices(current_matrix, m1);
+        current_matrix = next_matrix;
+        
+        if (i + 1 == 3) {
+            printf("\nMatrix M^3:\n");
+            displayMatrix(current_matrix);
+        }
+        if (i + 1 == 7) {
+            printf("\nMatrix M^7:\n");
+            displayMatrix(current_matrix);
+        }
+    }
+    int n = 0;
+    t_matrix * m2 = multiplyMatrices(m1,m1);
+    t_matrix *curr2 = m2;
+    float difference = matrixDifference(m2, m1); 
+    while(difference >= 0.01) {
+        t_matrix *next= multiplyMatrices(curr2, m1);
+        difference = matrixDifference(next, curr2); 
+        curr2 = next;
+        n += 1;
+    }
+    printf("\nThe matrix will be stationnary at n = %d\n", n);
+
     return 0;
 }

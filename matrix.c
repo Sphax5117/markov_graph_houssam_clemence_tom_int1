@@ -88,16 +88,21 @@ t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N) {
     int n = M->nbrows; 
     t_matrix * R = createEmptyMatrix(n); 
     for (int i = 0; i < n; i++) {
+        
         for (int j = 0; j < n; j++) {
-            float sum = 0.0f;
+                        // Use double for higher precision during accumulation (it wasn't that...)
+            double sum = 0.0; 
             for (int k = 0; k < n; k++) {
-                sum += M->data[i][k] * N->data[k][j];
+                sum += (double)M->data[i][k] * (double)N->data[k][j];
             }
-            R->data[i][j] = sum;
+            // Cast back to float for storage
+            R->data[i][j] = (float)sum;
         }
+    
+        }
+        return R;
     }
-    return R;
-}
+
 
 float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
     float result = 0.0;
@@ -127,4 +132,18 @@ void displayMatrix(t_matrix * m){
         printf("|\n");
     }
     return;
+}
+
+t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
+    /**
+     * @brief Extracts a submatrix corresponding to a specific
+    component of a graph partition.
+    *
+    * @param matrix The original adjacency matrix of the graph.
+    * @param part The partition of the graph into strongly
+    connected components.
+    * @param compo_index The index of the component to extract.
+    * @return t_matrix The submatrix corresponding to the
+    specified component.
+    */
 }

@@ -16,6 +16,8 @@
         "tuple": "c",
         "type_traits": "c",
         "variant": "c",
-        "version": "c"
+        "version": "c",
+        "stdio.h": "c",
+        "matrix.h": "c"
     }
 }
