@@ -19,5 +19,6 @@ void copyMatrix(t_matrix * destination, t_matrix * source);
 float matrixDifference(t_matrix * matrixA, t_matrix * matrixB);
 t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj);
 t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N);
+void displayMatrix(t_matrix * m);
 
 #endif //INC_2526_TI301_PJT_MATRIX_H

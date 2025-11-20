@@ -3,10 +3,13 @@
 
 int main() {
     char filename[256];
+    char filename2[256]; // for part 3
     #ifdef _WIN32
         snprintf(filename, sizeof(filename), "..\\data\\exemple_valid_step3.txt");
+        snprintf(filename2, sizeof(filename), "..\\data\\test_bench\\exemple_meteo.txt");
     #else
         snprintf(filename, sizeof(filename), "data/exemple_valid_step3.txt");
+        snprintf(filename2, sizeof(filename), "data/test_bench/exemple_meteo.txt");
     #endif
     t_adjacency_list * adj;
     printf("PART 1 - BEGINNING OF THE TESTS\n");
@@ -34,6 +37,12 @@ int main() {
 
     free(vertex_to_class);
     free(links.links);
+    printf("PART 3 - BEGINNING OF THE TESTS\n");
+    t_adjacency_list * adj2;
+    adj2 = readGraph(filename2);
+    t_matrix * m;
+    m = createMatrixFromAdjacency(adj2);
+    displayMatrix(m);
     
     return 0;
 }
