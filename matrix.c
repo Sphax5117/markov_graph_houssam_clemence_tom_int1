@@ -1,7 +1,7 @@
 //
 // Created by Houss on 20/11/2025.
 //
-
+#include <stdio.h>
 #include "matrix.h"
 
 t_matrix createEmptyMatrix(int n) {
@@ -29,4 +29,23 @@ t_matrix createEmptyMatrix(int n) {
         }
     }
     return result;
+}
+
+void copyMatrix(t_matrix dest, t_matrix src) {
+    //on verifie la taille de la matrice source et la matrice de destination
+    if (dest.rows != src.rows || dest.cols != src.cols) {
+        fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");
+        return;
+    }
+
+    // ici on cosidure que la pour realiser les copies des valeurs de la matrice on prend la taille des lignes
+    int n = src.rows;
+
+
+    for (int i = 0; i < n; i++) {       // ca parcourt les lignes
+        for (int j = 0; j < n; j++) {   // et les colonnes
+            // L'opération de copie elle-même
+            dest.data[i][j] = src.data[i][j];
+        }
+    }
 }
