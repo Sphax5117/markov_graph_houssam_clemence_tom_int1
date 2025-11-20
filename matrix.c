@@ -154,6 +154,7 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
             // Retrieve the global IDs of the vertices in the component.
             // Based on createMatrixFromAdjacency, the matrix uses 0-based indexing 
             // for 1-based node IDs, so we subtract 1.
+            
             int global_row = part->classes[compo_index].vertices[i].id - 1;
             int global_col = part->classes[compo_index].vertices[j].id - 1;
 
@@ -161,4 +162,23 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
         }
     }
     return m;
+}
+// the function below was done by Gemini Pro 3 in order to display the final distribution in a clean manner
+void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
+    if (converged == NULL || real_ids == NULL) return;
+
+    printf("\n--- Stationary Distribution (Limit) ---\n");
+    printf("| State | Probability |\n");
+    printf("|-------|-------------|\n");
+
+    // We only need to read the first row (row 0) because at stationarity, 
+    // all rows in the matrix are identical.
+    for (int j = 0; j < size; j++) {
+        double prob = converged->data[0][j];
+        int node_id = real_ids[j];
+        
+        // Display formatted: ID | Percentage
+        printf("|   %2d  |   %5.2f%%   |\n", node_id, prob * 100);
+    }
+    printf("---------------------------------------\n");
 }

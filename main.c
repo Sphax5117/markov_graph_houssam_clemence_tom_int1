@@ -75,15 +75,49 @@ int main() {
     t_matrix * subMat;
     subMat = subMatrix(m1, tarjM, compo_index);
     displayMatrix(subMat);
+    /// THE PART BELOW WAS DONE BY GEMINI 3 PRO IN ORDER TO HAVE THE CORRECT PARAMETERS IN displayFinalDistribution
+    //
+    //
+    int sub_size = subMat->nbrows;
+    int *real_ids = malloc(sub_size * sizeof(int));
+    if (real_ids == NULL) {
+        perror("malloc real_ids");
+        exit(EXIT_FAILURE);
+    }
+    t_class current_class = tarjM->classes[compo_index];
+    // Check if matrix size matches class size (Sanity Check)
+    if (current_class.size != sub_size) {
+        printf("WARNING: Class size (%d) != Matrix size (%d)\n", current_class.size, sub_size);
+    }
+
+    // ARRAY ITERATION (No Linked List)
+    for (int k = 0; k < sub_size; k++) {
+        // According to tarjan.h: vertices is an array of t_tarjan_vertex
+        real_ids[k] = current_class.vertices[k].id;
+    }
+    //
+    //
+    /// THE PART ABOVE WAS DONE BY GEMINI 3 PRO IN ORDER TO HAVE THE CORRECT PARAMETERS IN displayFinalDistribution
     t_matrix * mDistrib = multiplyMatrices(subMat, subMat);
     t_matrix *curr = mDistrib;
     float diff = matrixDifference(mDistrib, subMat); 
     while(diff >= 0.01) {
         t_matrix *next= multiplyMatrices(curr, subMat);
         diff = matrixDifference(next, curr); 
+        //we should implement a free function here
         curr= next;
     }
-    printf("Distribution for the classes :\n");
+    printf("Stationary Matrix for the classes (rounded) :\n");
     displayMatrix(curr);
+    if (real_ids != NULL) {
+        // NOTE: Verify real_ids is filled correctly before calling this!
+        displayFinalDistribution(curr, real_ids, sub_size); 
+        free(real_ids);
+    } else {
+        // Fallback if you didn't fill IDs
+        printf("Distribution for the classes (Index-based):\n");
+        displayMatrix(curr);
+    }
+
     return 0;
 }
