@@ -68,6 +68,29 @@ t_partition * tarjan(t_adjacency_list * graph) {
     return partition;
 }
 
+t_partition * tarjanWithoutPrints(t_adjacency_list * graph) {
+    int num_value = 0;
+    int * num = &num_value;
+    t_stack * stack;
+    stack = createStack(graph->size);
+    t_partition * partition = (t_partition *)malloc(sizeof(t_partition));
+    partition->classes = (t_class *)malloc(graph->size * sizeof(t_class));
+    partition->size = 0;
+    partition->capacity = graph->size;
+    t_tarjan_vertex * vertices = tarjanArr(graph);
+
+    if(vertices==NULL){
+        perror("error");
+        exit(EXIT_FAILURE);
+    }
+    for (int i=1;i<=graph->size;i++){
+        if (vertices[i].number == -1) {
+            parcoursWithoutPrints(&vertices[i], vertices, stack, partition, graph, num);
+        }
+    }
+    return partition;
+}
+
 t_class * createClass(t_adjacency_list * graph) {
         t_class *C = (t_class *)malloc(sizeof(t_class));
         if (C == NULL) {
@@ -99,7 +122,6 @@ void addToClass(t_class *C, t_tarjan_vertex *v) {
 }
 
 void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
-    printf("iteration aaa\n");
     v->number = *p_num;
     v->accessnb = *p_num;
     (*p_num)++;
@@ -143,6 +165,51 @@ void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, 
         addToClass(C, w);
     } while(w->id != v->id);
     printf("Class size: %d\n", C->size);
+    partition->classes[partition->size] = *C;
+    partition->size += 1;
+}
+    return;
+}
+
+
+void parcoursWithoutPrints(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
+    v->number = *p_num;
+    v->accessnb = *p_num;
+    (*p_num)++;
+    pushStack(v->id, stack);
+    v->boolind =1;
+    t_cell * current = graph->array[v->id -1].head;
+    t_tarjan_vertex * w;
+    while (current != NULL) {
+        w = &vertices[current->destination]; //current destination -> successor of v.
+        if (w->number == -1) {
+            parcoursWithoutPrints(w, vertices, stack, partition, graph, p_num);
+            if (w->accessnb < v->accessnb) {
+                v->accessnb = w->accessnb;
+            }
+        } else if (w->boolind == 1) {
+            if (w->number < v->accessnb) {
+                v->accessnb = w->number;
+            }
+        }
+        current = current->next;
+    }
+    if (v->accessnb == v->number) {
+    t_class * C = createClass(graph);
+    t_tarjan_vertex * w = NULL;
+    int popped_id;
+    do {
+        popped_id = pop(stack);
+        
+        // Check if popped_id is valid (between 1 and graph->size)
+        if (popped_id < 1 || popped_id > graph->size) {
+            break;
+        }
+        
+        w = &vertices[popped_id];
+        w->boolind = 0;
+        addToClass(C, w);
+    } while(w->id != v->id);
     partition->classes[partition->size] = *C;
     partition->size += 1;
 }

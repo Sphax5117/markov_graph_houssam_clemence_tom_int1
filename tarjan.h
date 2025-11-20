@@ -32,7 +32,10 @@ typedef struct s_partition{
 
 t_tarjan_vertex*tarjanArr(t_adjacency_list*graph);
 void displayTarjan(t_partition * partition);
-t_partition * tarjan(t_adjacency_list * graph);void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num);
+t_partition * tarjan(t_adjacency_list * graph);
+void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num);
+t_partition * tarjanWithoutPrints(t_adjacency_list * graph);
+void parcoursWithoutPrints(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num);
 void addToClass(t_class *C, t_tarjan_vertex *v);
 t_class * createClass(t_adjacency_list * graph);
 

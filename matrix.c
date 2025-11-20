@@ -146,5 +146,19 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
     * @return t_matrix The submatrix corresponding to the
     specified component.
     */
-   
+   t_matrix * m;
+   int n = part->classes[compo_index].size;
+   m = createEmptyMatrix(n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            // Retrieve the global IDs of the vertices in the component.
+            // Based on createMatrixFromAdjacency, the matrix uses 0-based indexing 
+            // for 1-based node IDs, so we subtract 1.
+            int global_row = part->classes[compo_index].vertices[i].id - 1;
+            int global_col = part->classes[compo_index].vertices[j].id - 1;
+
+            m->data[i][j] = matrix->data[global_row][global_col];
+        }
+    }
+    return m;
 }

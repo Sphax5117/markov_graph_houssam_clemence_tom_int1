@@ -6,10 +6,10 @@ int main() {
     char filename2[256]; // for part 3
     #ifdef _WIN32
         snprintf(filename, sizeof(filename), "..\\data\\exemple_valid_step3.txt");
-        snprintf(filename2, sizeof(filename), "..\\data\\test_bench\\exemple_meteo.txt");
+        snprintf(filename2, sizeof(filename), "..\\data\\test_bench\\exemple_valid_step3.txt");
     #else
         snprintf(filename, sizeof(filename), "data/exemple_valid_step3.txt");
-        snprintf(filename2, sizeof(filename), "data/test_bench/exemple_meteo.txt");
+        snprintf(filename2, sizeof(filename), "data/test_bench/exemple_valid_step3.txt");
     #endif
     t_adjacency_list * adj;
     printf("PART 1 - BEGINNING OF THE TESTS\n");
@@ -68,6 +68,22 @@ int main() {
         n += 1;
     }
     printf("\nThe matrix will be stationnary at n = %d\n", n);
-
+    t_partition * tarjM;
+    tarjM = tarjanWithoutPrints(adj2);
+    displayTarjan(tarjM);
+    int compo_index = 0;
+    t_matrix * subMat;
+    subMat = subMatrix(m1, tarjM, compo_index);
+    displayMatrix(subMat);
+    t_matrix * mDistrib = multiplyMatrices(subMat, subMat);
+    t_matrix *curr = mDistrib;
+    float diff = matrixDifference(mDistrib, subMat); 
+    while(diff >= 0.01) {
+        t_matrix *next= multiplyMatrices(curr, subMat);
+        diff = matrixDifference(next, curr); 
+        curr= next;
+    }
+    printf("Distribution for the classes :\n");
+    displayMatrix(curr);
     return 0;
 }

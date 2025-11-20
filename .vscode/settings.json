@@ -18,6 +18,12 @@
         "variant": "c",
         "version": "c",
         "stdio.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "bitset": "c",
+        "deque": "c",
+        "initializer_list": "c",
+        "unordered_map": "c"
     }
 }
