@@ -13,8 +13,8 @@ t_matrix* createEmptyMatrix(int n) {
 
     //Tom (20/11) : j'ai transformé la fonction pour return des pointers
 
-    result->rows = n;
-    result->cols = n;
+    result->nbrows = n;
+    result->nbcols = n;
 
     // la on fait une allocation des pointeurs des lignes n
     result->data = (float**)malloc(n * sizeof(float*));
@@ -42,13 +42,13 @@ t_matrix* createEmptyMatrix(int n) {
 
 void copyMatrix(t_matrix dest, t_matrix src) {
     //on verifie la taille de la matrice source et la matrice de destination
-    if (dest.rows != src.rows || dest.cols != src.cols) {
+    if (dest.nbrows != src.nbrows || dest.nbcols != src.nbcols) {
         fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");
         return;
     }
 
     // ici on cosidure que la pour realiser les copies des valeurs de la matrice on prend la taille des lignes
-    int n = src.rows;
+    int n = src.nbrows;
 
 
     for (int i = 0; i < n; i++) {       // ca parcourt les lignes
@@ -57,4 +57,24 @@ void copyMatrix(t_matrix dest, t_matrix src) {
             dest.data[i][j] = src.data[i][j];
         }
     }
+}
+
+
+
+t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
+    t_matrix * matrix;
+    matrix = createEmptyMatrix(adj->size);
+    for (int i = 0; i < adj->size; i++) {
+        const t_cell *curr = adj->array[i].head;
+            while (curr) {
+                int j = curr->destination; 
+                //as we only need to fill nodes connected to the 1st, the 2nd, etc...
+                // we use only the destinations as indexes.
+            if (j >= 0 && j < matrix->nbcols) { //we check that we don't fill non-existent spots in the matrix
+                matrix->data[i][j] = curr->probability;
+            }
+            curr = curr->next;
+        }
+    }
+    return matrix;
 }

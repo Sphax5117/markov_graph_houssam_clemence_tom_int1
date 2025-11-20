@@ -9,12 +9,13 @@
 #include "adjacency.h"
 
 typedef struct {
-    int rows;
-    int cols;
+    int nbrows;
+    int nbcols;
     float** data;
 } t_matrix;
 
 t_matrix * createEmptyMatrix(int n);
 void copyMatrix(t_matrix destination, t_matrix source);
+t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj);
 
 #endif //INC_2526_TI301_PJT_MATRIX_H

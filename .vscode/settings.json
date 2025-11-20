@@ -7,6 +7,15 @@
         "string": "c",
         "string_view": "c",
         "vector": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "__locale": "c",
+        "iterator": "c",
+        "memory": "c",
+        "new": "c",
+        "optional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "variant": "c",
+        "version": "c"
     }
 }
