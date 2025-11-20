@@ -146,4 +146,5 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
     * @return t_matrix The submatrix corresponding to the
     specified component.
     */
+   
 }
