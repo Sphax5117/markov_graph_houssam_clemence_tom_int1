@@ -6,6 +6,7 @@
 #define INC_2526_TI301_PJT_MATRIX_H
 #include <stdlib.h>
 #include <math.h>
+#include "adjacency.h"
 
 typedef struct {
     int rows;
@@ -13,6 +14,6 @@ typedef struct {
     float** data;
 } t_matrix;
 
-t_matrix createEmptyMatrix(int n);
+t_matrix * createEmptyMatrix(int n);
 
 #endif //INC_2526_TI301_PJT_MATRIX_H

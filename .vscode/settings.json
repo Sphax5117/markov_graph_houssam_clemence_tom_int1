@@ -2,6 +2,11 @@
     "files.associations": {
         "mermaid.h": "c",
         "queue": "c",
-        "stack": "c"
+        "stack": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c",
+        "main.h": "c"
     }
 }

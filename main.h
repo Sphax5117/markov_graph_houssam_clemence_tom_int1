@@ -7,4 +7,6 @@
 #include "markov.h"
 #include "mermaid.h"
 #include "tarjan.h"
+#include "hasse.h"
+#include "matrix.h"
 #endif
