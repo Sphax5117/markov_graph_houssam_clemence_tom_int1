@@ -78,7 +78,7 @@ t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
     }
     return matrix;
 }
-t_matrix *multiply_matrices(t_matrix * M, t_matrix * N) {
+t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N) {
     // Dans ce contexte, on suppose n x n. On vérifie juste les dimensions.
     if (M->nbcols != N->nbrows) {
         fprintf(stderr, "Erreur: Les matrices ne sont pas compatibles pour la multiplication.\n");
@@ -97,4 +97,19 @@ t_matrix *multiply_matrices(t_matrix * M, t_matrix * N) {
         }
     }
     return R;
+}
+
+float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
+    float result = 0.0;
+    int n = matrixA->nbcols;
+    if (n != matrixA->nbrows || n != matrixB->nbcols || n != matrixB->nbrows) {
+        fprintf(stderr, "Error ( matrixDifference() ): Matrices aren't the same size\n");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            result += fabs(matrixA->data[i][j] - matrixB->data[i][j]); //fabs is used to have absolute value of floats
+        }
+    }
+    return result;
 }
