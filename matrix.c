@@ -40,7 +40,7 @@ t_matrix* createEmptyMatrix(int n) {
     return result;
 }
 
-void  copyMatrix(t_matrix * dest, t_matrix * src) {
+void copyMatrix(t_matrix * dest, t_matrix * src) {
     //on verifie la taille de la matrice source et la matrice de destination
     if (dest->nbrows != src->nbrows || dest->nbcols != src->nbcols) {
         fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");
@@ -112,4 +112,19 @@ float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
         }
     }
     return result;
+}
+
+void displayMatrix(t_matrix * m){
+    int n = m->nbrows;
+    if (n != m->nbcols) {
+        fprintf(stderr, "Error ( displayMatrix() ): Matrices aren't the same size\n");
+        exit(EXIT_FAILURE);
+    } 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("| %6.2f ", m->data[i][j]);
+        }
+        printf("|\n");
+    }
+    return;
 }
