@@ -33,7 +33,7 @@ void displayTarjan(t_partition * partition) {
                 printf(",");
             }
         }
-        printf("}\n");
+        printf("}\n\n");
     }
 }
 
@@ -46,6 +46,7 @@ void displayTarjan(t_partition * partition) {
    // renvoyer partition
 // fin de fonction
 t_partition * tarjan(t_adjacency_list * graph) {
+    printf("\n");
     int num_value = 0;
     int * num = &num_value;
     t_stack * stack;

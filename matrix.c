@@ -131,6 +131,7 @@ void displayMatrix(t_matrix * m){
         }
         printf("|\n");
     }
+    printf("\n");
     return;
 }
 
@@ -167,7 +168,7 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
 void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
     if (converged == NULL || real_ids == NULL) return;
 
-    printf("\n--- Stationary Distribution (Limit) ---\n");
+    printf("\n\n--- Stationary Distribution (Limit) ---\n\n");
     printf("| State | Probability |\n");
     printf("|-------|-------------|\n");
 
@@ -178,7 +179,7 @@ void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
         int node_id = real_ids[j];
         
         // Display formatted: ID | Percentage
-        printf("|   %2d  |   %5.2f%%   |\n", node_id, prob * 100);
+        printf("|   %2d  |   %5.2f%%    |\n", node_id, prob * 100);
     }
     printf("---------------------------------------\n");
 }

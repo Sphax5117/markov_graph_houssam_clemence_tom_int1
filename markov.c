@@ -2,6 +2,7 @@
 
 int isMarkovGraph(t_adjacency_list * adj) {
     int result = 0;
+    printf("\n");
     for (int i = 0; i < adj->size; i++) {
         const t_cell *curr = adj->array[i].head;
         float totalproba = 0;

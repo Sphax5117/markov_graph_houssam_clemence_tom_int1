@@ -12,15 +12,17 @@ int main() {
         snprintf(filename2, sizeof(filename), "data/test_bench/exemple_valid_step3.txt");
     #endif
     t_adjacency_list * adj;
-    printf("PART 1 - BEGINNING OF THE TESTS\n");
+    printf("\nThe first file to be loaded is : %s\n\n", filename);
+    printf("PART 1 - BEGINNING OF THE TESTS\n\n");
     adj = readGraph(filename);
     displayAdjacencyList(adj);
     if (isMarkovGraph(adj)) {
-        printf("The graph is a Markov Graph\n");
+        printf("\nThe graph is a Markov Graph\n\n");
     } else {
-        printf("The graph is not a Markov Graph\n");
+        printf("\nThe graph is not a Markov Graph\n");
     }
     mermaidGenerator(adj);
+    printf("-------------------------------\n");
     printf("PART 2 - BEGINNING OF THE TESTS\n");
     t_partition * partition = tarjan(adj);
     displayTarjan(partition);
@@ -37,11 +39,14 @@ int main() {
 
     free(vertex_to_class);
     free(links.links);
-    printf("PART 3 - BEGINNING OF THE TESTS\n");
+    printf("-------------------------------\n");
+    printf("PART 3 - BEGINNING OF THE TESTS\n\n");
+    printf("\nThe second file to be loaded is : %s\n\n", filename2);
     t_adjacency_list * adj2;
     adj2 = readGraph(filename2);
     t_matrix * m1;
     m1 = createMatrixFromAdjacency(adj2);
+    printf("\nMatrix M:\n\n");
     displayMatrix(m1);
     t_matrix *current_matrix = m1;
     for (int i = 1; i < 7; i++) {
@@ -49,11 +54,11 @@ int main() {
         current_matrix = next_matrix;
         
         if (i + 1 == 3) {
-            printf("\nMatrix M^3:\n");
+            printf("\nMatrix M^3:\n\n");
             displayMatrix(current_matrix);
         }
         if (i + 1 == 7) {
-            printf("\nMatrix M^7:\n");
+            printf("\nMatrix M^7:\n\n");
             displayMatrix(current_matrix);
         }
     }
@@ -67,13 +72,14 @@ int main() {
         curr2 = next;
         n += 1;
     }
-    printf("\nThe matrix will be stationnary at n = %d\n", n);
+    printf("\nThe matrix will be stationnary at n = %d\n\n", n);
     t_partition * tarjM;
     tarjM = tarjanWithoutPrints(adj2);
     displayTarjan(tarjM);
     int compo_index = 0;
     t_matrix * subMat;
     subMat = subMatrix(m1, tarjM, compo_index);
+    printf("Below, the matrix for component C%d\n\n", compo_index + 1);
     displayMatrix(subMat);
     /// THE PART BELOW WAS DONE BY GEMINI 3 PRO IN ORDER TO HAVE THE CORRECT PARAMETERS IN displayFinalDistribution
     //
@@ -107,7 +113,7 @@ int main() {
         //we should implement a free function here
         curr= next;
     }
-    printf("Stationary Matrix for the classes (rounded) :\n");
+    printf("Stationary Matrix for the classes (rounded) :\n\n");
     displayMatrix(curr);
     if (real_ids != NULL) {
         // NOTE: Verify real_ids is filled correctly before calling this!
