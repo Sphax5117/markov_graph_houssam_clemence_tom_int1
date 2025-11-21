@@ -183,3 +183,19 @@ void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
     }
     printf("---------------------------------------\n");
 }
+
+void freeMatrix(t_matrix * m) {
+    int n = m->nbcols;
+    if (n != m->nbcols) {
+        fprintf(stderr, "Error ( displayMatrix() ): Matrices aren't the same size\n");
+        exit(EXIT_FAILURE);
+    } 
+    for (int i = 0; i < n; i++) {
+           free(m->data[i]);
+            m->data[i] = NULL;
+        }
+    free(m->data);
+    m->data = NULL;
+    free(m);
+    m = NULL;
+}

@@ -110,17 +110,15 @@ int main() {
     while(diff >= 0.01) {
         t_matrix *next= multiplyMatrices(curr, subMat);
         diff = matrixDifference(next, curr); 
-        //we should implement a free function here
+        freeMatrix(curr);
         curr= next;
     }
     printf("Stationary Matrix for the classes (rounded) :\n\n");
     displayMatrix(curr);
     if (real_ids != NULL) {
-        // NOTE: Verify real_ids is filled correctly before calling this!
         displayFinalDistribution(curr, real_ids, sub_size); 
         free(real_ids);
     } else {
-        // Fallback if you didn't fill IDs
         printf("Distribution for the classes (Index-based):\n");
         displayMatrix(curr);
     }
