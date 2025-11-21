@@ -24,6 +24,7 @@
         "bitset": "c",
         "deque": "c",
         "initializer_list": "c",
-        "unordered_map": "c"
+        "unordered_map": "c",
+        "tarjan.h": "c"
     }
 }

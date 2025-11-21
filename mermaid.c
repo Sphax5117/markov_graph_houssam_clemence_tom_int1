@@ -1,9 +1,8 @@
 #include "mermaid.h"
 
 
-//Part 3
 void mermaidGenerator(t_adjacency_list * adj) {
-    FILE *file = fopen("mermaid.txt", "w");
+    FILE *file = fopen("mermaid.txt", "w"); //opening the file
     if (file == NULL) {
         perror("Could not open file for writing");
         return;

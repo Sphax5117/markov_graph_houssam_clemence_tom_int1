@@ -3,7 +3,7 @@
 
 int main() {
     char filename[256];
-    char filename2[256]; // for part 3
+    char filename2[256]; 
     #ifdef _WIN32
         snprintf(filename, sizeof(filename), "..\\data\\exemple_valid_step3.txt");
         snprintf(filename2, sizeof(filename), "..\\data\\test_bench\\exemple_valid_step3.txt");

@@ -3,12 +3,12 @@
 #include "hasse.h"
 
 
-//structure innitialisée pour les liens
+//structure innitialisée pour les liens (BRIEF)
 void initLink(t_link_array *la)
 {
     la->log_size = 0;
-    la->size = 10; //nb de lien utilisé(au pif 10)
-    la->links = malloc(la->size * sizeof(t_link));//taille du tableau(allocation pour les 10 t_link)
+    la->size = 1000; 
+    la->links = malloc(la->size * sizeof(t_link));//size of the table(allocation for the 1000 t_link)
 
     if (!la->links) {
         perror("malloc link_array");
@@ -18,13 +18,13 @@ void initLink(t_link_array *la)
 
 void addLink(t_link_array *la, int from, int to)
 {
-    // vérifier si lien exist
+    //we check if the link exists
     for (int i = 0; i < la->log_size; i++) {
         if (la->links[i].from == from && la->links[i].to == to)
-            return; // déjà présent
+            return; //already present
     }
 
-    // Si pas de place
+    // if not enough capacity
     if (la->log_size == la->size) {
         la->size *= 2;
         la->links = realloc(la->links, la->size * sizeof(t_link));
@@ -38,7 +38,7 @@ void addLink(t_link_array *la, int from, int to)
     la->links[la->log_size].to = to;
     la->log_size++;
 }
-//Cette fonction fait ce que dit le PDF :
+//The fonction above follows the PDF :
 //If the link Ci,Cj does not exist
 //Add the link Ci,Cj to the structure that stores the links
 // Elle :
@@ -58,7 +58,7 @@ void createvertextoclass(t_partition *p, int *vertextoclass, int nb_vertices)
         }
     }
 }
-// la traduction directe de ce que dit le PDF :
+// Same for above
 //Create an array that indicates, for each vertex of the graph, the class to which it belongs.
 void Linkslist(t_partition *p, t_adjacency_list *graph,int *vertextoclass, t_link_array *links)
 {

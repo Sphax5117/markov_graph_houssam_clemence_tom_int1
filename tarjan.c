@@ -1,7 +1,7 @@
 //
 // Created by cleme on 07/11/2025.
 //
-//en gros tarjan graphe il regroupe les sommets connectés entre eux en classes et se regroupement s'appelle une partition
+//Tarjan regroups the connected vertices betweeen il regroupe les sommets connectés entre eux en classes et se regroupement s'appelle une partition
 #include "tarjan.h"
 t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){
     int n = graph->size;
