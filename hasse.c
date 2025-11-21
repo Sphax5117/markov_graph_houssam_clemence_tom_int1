@@ -3,7 +3,11 @@
 #include "hasse.h"
 
 
-//structure innitialisée pour les liens (BRIEF)
+/**
+ * @brief Initializes the link array structure.
+ *
+ * @param la A pointer to the link array to initialize.
+ */
 void initLink(t_link_array *la)
 {
     la->log_size = 0;
@@ -16,6 +20,13 @@ void initLink(t_link_array *la)
     }
 }
 
+/**
+ * @brief Adds a link between two classes to the link array.
+ *
+ * @param la A pointer to the link array.
+ * @param from The source class ID.
+ * @param to The destination class ID.
+ */
 void addLink(t_link_array *la, int from, int to)
 {
     //we check if the link exists
@@ -46,6 +57,13 @@ void addLink(t_link_array *la, int from, int to)
 //agrandit le tableau si besoin
 //ajoute le lien à la fin
 
+/**
+ * @brief Creates an array mapping each vertex to its corresponding class.
+ *
+ * @param p A pointer to the partition structure.
+ * @param vertextoclass An array to store the class ID for each vertex.
+ * @param nb_vertices The number of vertices in the graph.
+ */
 void createvertextoclass(t_partition *p, int *vertextoclass, int nb_vertices)
 {
     for (int i = 0; i <= nb_vertices; i++)
@@ -60,6 +78,14 @@ void createvertextoclass(t_partition *p, int *vertextoclass, int nb_vertices)
 }
 // Same for above
 //Create an array that indicates, for each vertex of the graph, the class to which it belongs.
+/**
+ * @brief Generates the list of links between classes based on the graph and partition.
+ *
+ * @param p A pointer to the partition structure.
+ * @param graph A pointer to the adjacency list of the graph.
+ * @param vertextoclass An array mapping vertices to their classes.
+ * @param links A pointer to the link array to populate.
+ */
 void Linkslist(t_partition *p, t_adjacency_list *graph,int *vertextoclass, t_link_array *links)
 {
     initLink(links);
@@ -90,6 +116,12 @@ void Linkslist(t_partition *p, t_adjacency_list *graph,int *vertextoclass, t_lin
 //            Add link (Ci,Cj)
 
 
+/**
+ * @brief Analyzes and prints the characteristics of the graph (transient, persistent, absorbing, irreducible).
+ *
+ * @param p A pointer to the partition structure.
+ * @param links A pointer to the link array representing connections between classes.
+ */
 void graphCharacteristics(t_partition *p, t_link_array *links)
 {
     printf("\nPART 3 - BEGINNING OF THE TESTS\n");

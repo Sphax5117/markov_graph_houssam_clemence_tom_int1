@@ -3,6 +3,13 @@
 //
 //Tarjan regroups the connected vertices betweeen il regroupe les sommets connectés entre eux en classes et se regroupement s'appelle une partition
 #include "tarjan.h"
+
+/**
+ * @brief Initializes an array of Tarjan vertices for the graph.
+ *
+ * @param graph A pointer to the adjacency list of the graph.
+ * @return t_tarjan_vertex* An array of initialized Tarjan vertices.
+ */
 t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){
     int n = graph->size;
     t_tarjan_vertex * vertices = (t_tarjan_vertex*)malloc((n+1)*sizeof(t_tarjan_vertex));
@@ -20,6 +27,11 @@ t_tarjan_vertex * tarjanArr(t_adjacency_list * graph){
 }
 
 
+/**
+ * @brief Displays the strongly connected components (partition) found by Tarjan's algorithm.
+ *
+ * @param partition A pointer to the partition structure containing the components.
+ */
 void displayTarjan(t_partition * partition) {
     if (partition == NULL) {
         perror("error");
@@ -37,14 +49,15 @@ void displayTarjan(t_partition * partition) {
     }
 }
 
-//fonction tarjan(graphe G)
-  // num := 0
-   //P := pile vide
-   //partition := ensemble vide
-
-
-   // renvoyer partition
-// fin de fonction
+//based on Wikipedia
+/**
+ * @brief Executes Tarjan's algorithm to find strongly connected components.
+ *
+ * This version includes print statements for visualization.
+ *
+ * @param graph A pointer to the adjacency list of the graph.
+ * @return t_partition* A pointer to the partition structure containing the SCCs.
+ */
 t_partition * tarjan(t_adjacency_list * graph) {
     printf("\n");
     int num_value = 0;
@@ -69,6 +82,12 @@ t_partition * tarjan(t_adjacency_list * graph) {
     return partition;
 }
 
+/**
+ * @brief Executes Tarjan's algorithm without printing debug information.
+ *
+ * @param graph A pointer to the adjacency list of the graph.
+ * @return t_partition* A pointer to the partition structure containing the SCCs.
+ */
 t_partition * tarjanWithoutPrints(t_adjacency_list * graph) {
     int num_value = 0;
     int * num = &num_value;
@@ -92,6 +111,12 @@ t_partition * tarjanWithoutPrints(t_adjacency_list * graph) {
     return partition;
 }
 
+/**
+ * @brief Creates a new class (component) structure.
+ *
+ * @param graph A pointer to the graph (used for sizing).
+ * @return t_class* A pointer to the newly created class.
+ */
 t_class * createClass(t_adjacency_list * graph) {
         t_class *C = (t_class *)malloc(sizeof(t_class));
         if (C == NULL) {
@@ -108,6 +133,12 @@ t_class * createClass(t_adjacency_list * graph) {
         return C;
 }
 
+/**
+ * @brief Adds a vertex to a class (component).
+ *
+ * @param C A pointer to the class.
+ * @param v A pointer to the vertex to add.
+ */
 void addToClass(t_class *C, t_tarjan_vertex *v) {
                 if (C == NULL || v == NULL) {
                     perror("error");
@@ -122,6 +153,16 @@ void addToClass(t_class *C, t_tarjan_vertex *v) {
                 C->size++;
 }
 
+/**
+ * @brief Recursive function for Tarjan's algorithm (DFS traversal).
+ *
+ * @param v The current vertex being visited.
+ * @param vertices The array of all Tarjan vertices.
+ * @param stack The stack used by the algorithm.
+ * @param partition The partition structure to store found components.
+ * @param graph The graph adjacency list.
+ * @param p_num A pointer to the current traversal number counter.
+ */
 void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
     v->number = *p_num;
     v->accessnb = *p_num;
@@ -173,6 +214,16 @@ void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, 
 }
 
 
+/**
+ * @brief Recursive function for Tarjan's algorithm (DFS traversal) without prints.
+ *
+ * @param v The current vertex being visited.
+ * @param vertices The array of all Tarjan vertices.
+ * @param stack The stack used by the algorithm.
+ * @param partition The partition structure to store found components.
+ * @param graph The graph adjacency list.
+ * @param p_num A pointer to the current traversal number counter.
+ */
 void parcoursWithoutPrints(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
     v->number = *p_num;
     v->accessnb = *p_num;

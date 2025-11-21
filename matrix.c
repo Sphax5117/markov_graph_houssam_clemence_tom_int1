@@ -5,6 +5,13 @@
 #include "matrix.h"
 
 t_matrix* createEmptyMatrix(int n) {
+    /**
+     * @brief Creates an empty matrix of size n*n, filled with 0. 
+     * This matrix uses double pointers 
+    *
+    * @param n int : The size of the matrix
+    * @return t_matrix The matrix of size n*n
+    */
     t_matrix* result = (t_matrix*)malloc(sizeof(t_matrix));
     if (result == NULL) {
         perror("Allocation error for matrix structure");
@@ -41,7 +48,15 @@ t_matrix* createEmptyMatrix(int n) {
 }
 
 void copyMatrix(t_matrix * dest, t_matrix * src) {
-    //on check that both matrices are the same size
+   /**
+     * @brief This function copies the content of the source matrix to the destination matrix
+    *
+    * @param src * t_matrix : the source matrix
+    * @param dest * t_matrix : the destination matrix
+    * @return void 
+    */
+
+    //We check that both matrices are the same size
     if (dest->nbrows != src->nbrows || dest->nbcols != src->nbcols) {
         fprintf(stderr, "Error: the matices aren't of the same size to be copied.\n");
         return;
@@ -61,6 +76,12 @@ void copyMatrix(t_matrix * dest, t_matrix * src) {
 
 
 t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
+    /**
+     * @brief This function creates, based on an adjacency list, the associated matrix.
+    *
+    * @param adj * t_adjacency_list: the adjacency list to extract the matrix from
+    * @return t_matrix : the matrix that was created 
+    */
     t_matrix * matrix;
     matrix = createEmptyMatrix(adj->size);
     for (int i = 0; i < adj->size; i++) {
@@ -78,6 +99,12 @@ t_matrix * createMatrixFromAdjacency(t_adjacency_list * adj) {
     return matrix;
 }
 t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N) {
+    /**
+     * @brief This function multiplies to matrix (matrix multiplation from Linear Algebra), and return the result
+    * @param M * t_matrix : the first matrix to be multiplied
+    * @param N * t_matrix : the second matrix to be multiplied
+    * @return N t_matrix : the result of the multiplication of the two matrixs 
+    */
     if (M->nbcols != N->nbrows) {
         fprintf(stderr, "Erreur: Les matrices ne sont pas compatibles pour la multiplication.\n");
         exit(EXIT_FAILURE);
@@ -103,6 +130,12 @@ t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N) {
 
 
 float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
+    /**
+     * @brief This function calculate the difference between two matrices, using the formula : Sum(i)Sum(j)(|A_ij - B_ij|)
+    * @param M * t_matrix : the first matrix to be multiplied
+    * @param N * t_matrix : the second matrix to be multiplied
+    * @return N t_matrix : the result of the multiplication of the two matrixs 
+    */
     float result = 0.0;
     int n = matrixA->nbcols;
     if (n != matrixA->nbrows || n != matrixB->nbcols || n != matrixB->nbrows) {
@@ -117,6 +150,11 @@ float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
     return result;
 }
 
+/**
+ * @brief Displays the matrix to the standard output.
+ *
+ * @param m A pointer to the matrix to display.
+ */
 void displayMatrix(t_matrix * m){
     int n = m->nbrows;
     if (n != m->nbcols) {
@@ -150,11 +188,7 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
    m = createEmptyMatrix(n);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            // Retrieve the global IDs of the vertices in the component.
-            // Based on createMatrixFromAdjacency, the matrix uses 0-based indexing 
-            // for 1-based node IDs, so we subtract 1.
-            
-            int global_row = part->classes[compo_index].vertices[i].id - 1;
+            int global_row = part->classes[compo_index].vertices[i].id - 1; //as our nodes start at 1, we need to remove 1 to have the "real index"
             int global_col = part->classes[compo_index].vertices[j].id - 1;
 
             m->data[i][j] = matrix->data[global_row][global_col];
@@ -163,6 +197,13 @@ t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index) {
     return m;
 }
 // the function below was done by Gemini Pro 3 in order to display the final distribution in a clean manner
+/**
+ * @brief Displays the final stationary distribution of the Markov chain.
+ *
+ * @param converged The converged matrix representing the stationary distribution.
+ * @param real_ids An array of real vertex IDs corresponding to the matrix indices.
+ * @param size The size of the matrix/distribution.
+ */
 void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
     if (converged == NULL || real_ids == NULL) return;
 
@@ -182,6 +223,11 @@ void displayFinalDistribution(t_matrix *converged, int *real_ids, int size) {
     printf("---------------------------------------\n");
 }
 
+/**
+ * @brief Frees the memory allocated for a matrix.
+ *
+ * @param m A pointer to the matrix to free.
+ */
 void freeMatrix(t_matrix * m) {
     int n = m->nbcols;
     if (n != m->nbcols) {

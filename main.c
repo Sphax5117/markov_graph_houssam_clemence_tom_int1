@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include "main.h"
 
+/**
+ * @brief Main entry point of the program.
+ *
+ * Executes the sequence of tests and operations for the Markov graph project,
+ * including reading graphs, checking Markov properties, generating Mermaid diagrams,
+ * computing Tarjan's components, and analyzing stationary distributions.
+ *
+ * @return int Returns 0 on successful execution.
+ */
 int main() {
     char filename[256];
     char filename2[256]; 
