@@ -1,7 +1,17 @@
 #include "markov.h"
 
+/**
+ * @brief Checks if the given graph is a Markov graph.
+ *
+ * A graph is considered a Markov graph if the sum of probabilities of outgoing edges
+ * for each vertex is approximately 1 (between 0.99 and 1.00).
+ *
+ * @param adj A pointer to the adjacency list representing the graph.
+ * @return int Returns 1 if the graph is a Markov graph, 0 otherwise.
+ */
 int isMarkovGraph(t_adjacency_list * adj) {
     int result = 0;
+    printf("\n");
     for (int i = 0; i < adj->size; i++) {
         const t_cell *curr = adj->array[i].head;
         float totalproba = 0;

@@ -2,6 +2,29 @@
     "files.associations": {
         "mermaid.h": "c",
         "queue": "c",
-        "stack": "c"
+        "stack": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c",
+        "main.h": "c",
+        "__locale": "c",
+        "iterator": "c",
+        "memory": "c",
+        "new": "c",
+        "optional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "variant": "c",
+        "version": "c",
+        "stdio.h": "c",
+        "matrix.h": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "bitset": "c",
+        "deque": "c",
+        "initializer_list": "c",
+        "unordered_map": "c",
+        "tarjan.h": "c"
     }
 }

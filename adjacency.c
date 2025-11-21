@@ -1,6 +1,12 @@
 #include "adjacency.h"
 #include "list.h"
 
+/**
+ * @brief Creates an adjacency list structure with a specified number of vertices.
+ *
+ * @param size The number of vertices in the graph.
+ * @return t_adjacency_list* A pointer to the newly created adjacency list.
+ */
 t_adjacency_list *createAdjacencyList(int size) {
     t_adjacency_list *adjList = malloc(sizeof *adjList);
     if (!adjList) { perror("malloc adjList"); exit(1); }
@@ -15,6 +21,11 @@ t_adjacency_list *createAdjacencyList(int size) {
     return adjList;
 }
 
+/**
+ * @brief Displays the adjacency list to the standard output.
+ *
+ * @param adj A pointer to the adjacency list to display.
+ */
 void displayAdjacencyList(const t_adjacency_list *adj) {
     for (int i = 0; i < adj->size; i++) {
         printf("List for vertex %d:", i + 1);
@@ -22,6 +33,12 @@ void displayAdjacencyList(const t_adjacency_list *adj) {
     }
 }
 
+/**
+ * @brief Reads a graph from a file and creates an adjacency list.
+ *
+ * @param filename The path to the file containing the graph data.
+ * @return t_adjacency_list* A pointer to the created adjacency list representing the graph.
+ */
 t_adjacency_list *readGraph(const char *filename) {
     FILE *file = fopen(filename, "r");
     int nbvert, start, end;

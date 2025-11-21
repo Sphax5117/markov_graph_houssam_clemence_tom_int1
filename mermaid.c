@@ -1,9 +1,15 @@
 #include "mermaid.h"
 
 
-//Part 3
+/**
+ * @brief Generates a Mermaid flowchart representation of the graph.
+ *
+ * Creates a file named "mermaid.txt" containing the graph structure in Mermaid syntax.
+ *
+ * @param adj A pointer to the adjacency list of the graph.
+ */
 void mermaidGenerator(t_adjacency_list * adj) {
-    FILE *file = fopen("mermaid.txt", "w");
+    FILE *file = fopen("mermaid.txt", "w"); //opening the file
     if (file == NULL) {
         perror("Could not open file for writing");
         return;
@@ -21,7 +27,7 @@ void mermaidGenerator(t_adjacency_list * adj) {
             curr = curr->next; 
         }
     }
-    fclose(file);
+    fclose(file); //we don't forget to close the file at the end
     return;
 }
 

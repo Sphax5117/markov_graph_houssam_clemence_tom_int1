@@ -3,6 +3,14 @@
 #include <string.h>
 
 #include "utils.h"
+
+/**
+ * @brief Converts a numeric ID to an alphabetic identifier (e.g., 1 -> A, 2 -> B, ..., 27 -> AA).
+ *
+ * @param i The numeric ID to convert (1-based).
+ * @return char* A dynamically allocated string containing the alphabetic identifier.
+ *               The caller is responsible for freeing this memory (though current usage might leak if not careful).
+ */
 char *getID(int i)
 {
     // translate from 1,2,3, .. ,500+ to A,B,C,..,Z,AA,AB,...

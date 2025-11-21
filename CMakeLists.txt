@@ -13,4 +13,6 @@ add_executable(TI_301_PJT
         markov.c
         stack.c
         tarjan.c
+        matrix.c
+        matrix.h
 )
