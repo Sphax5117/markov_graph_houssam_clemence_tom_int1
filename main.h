@@ -9,4 +9,5 @@
 #include "tarjan.h"
 #include "hasse.h"
 #include "matrix.h"
+#include "bonus.h"
 #endif
