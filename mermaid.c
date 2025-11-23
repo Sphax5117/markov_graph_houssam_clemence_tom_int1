@@ -31,3 +31,42 @@ void mermaidGenerator(t_adjacency_list * adj) {
     return;
 }
 
+
+void mermaidHasse(t_partition *p, t_link_array *links)
+{
+    FILE *file = fopen("mermaid_hasse.txt", "w");
+    if (file == NULL) {
+        perror("Could not open mermaid_hasse.txt for writing");
+        return;
+    }
+
+    fprintf(file, "---\nconfig:\n   layout: elk\n   theme: neo\n   look: neo\n---\n\nflowchart LR");
+
+
+    for (int c = 0; c < p->size; c++) {
+        fprintf(file, "\nC%d([\"C%d: ", c + 1, c + 1);
+
+        // display vertex
+        for (int k = 0; k < p->classes[c].size; k++) {
+            int v = p->classes[c].vertices[k].id;
+            fprintf(file, "%d", v);
+            if (k < p->classes[c].size - 1) {
+                fprintf(file, ",");
+            }
+        }
+
+        fprintf(file, "\"]);");
+    }
+
+    fprintf(file, "\n\n");
+
+    for (int i = 0; i < links->log_size; i++) {
+        int from = links->links[i].from;
+        int to   = links->links[i].to;
+
+        fprintf(file, "C%d --> C%d\n", from + 1, to + 1);
+    }
+
+    fclose(file);
+}
+
