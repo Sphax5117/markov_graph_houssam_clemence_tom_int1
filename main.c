@@ -13,12 +13,16 @@
 int main() {
     char filename[256];
     char filename2[256]; 
+    char bonus[256];
     #ifdef _WIN32
         snprintf(filename, sizeof(filename), "..\\data\\exemple_valid_step3.txt");
-        snprintf(filename2, sizeof(filename), "..\\data\\test_bench\\exemple_valid_step3.txt");
+        snprintf(filename2, sizeof(filename2), "..\\data\\test_bench\\exemple_valid_step3.txt");
+        snprintf(bonus, sizeof(bonus), "..\\data\\test_bench\\graph_bonus.txt");
+
     #else
         snprintf(filename, sizeof(filename), "data/exemple_valid_step3.txt");
-        snprintf(filename2, sizeof(filename), "data/test_bench/exemple_valid_step3.txt");
+        snprintf(filename2, sizeof(filename2), "data/test_bench/exemple_valid_step3.txt");
+        snprintf(bonus, sizeof(bonus), "data/test_bench/graph_bonus.txt");
     #endif
     t_adjacency_list * adj;
     printf("\nThe first file to be loaded is : %s\n\n", filename);
@@ -131,6 +135,19 @@ int main() {
         printf("Distribution for the classes (Index-based):\n");
         displayMatrix(curr);
     }
-
+    printf("-------------------------------\n");
+    printf("PART 3 (BONUS) - BEGINNING OF THE TESTS\n\n");
+    int period;
+    t_adjacency_list * adjBonus;
+    adjBonus = readGraph(bonus);
+    t_partition * tarjBonus;
+    tarjBonus = tarjanWithoutPrints(adjBonus);
+    int compo_index_bonus = 0;
+    t_matrix * mat3;
+    mat3 = createMatrixFromAdjacency(adjBonus);
+    t_matrix * subMatBonus;
+    subMatBonus = subMatrix(mat3, tarjBonus, compo_index_bonus);
+    period = getPeriod(subMatBonus);
+    printf("The period of the submatrix is %d", period);
     return 0;
 }

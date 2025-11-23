@@ -41,5 +41,5 @@ int getPeriod(t_matrix * sub_matrix) {
         power_matrix = multiplyMatrices(sub_matrix, result_matrix); // We needed to adapt this, as our multiply only takes 2 argument and return the result
         copyMatrix(power_matrix, result_matrix);
     }
-    return gcd(periods, period_count); //return the greates common divisor of the periods and the number of period
+    return gcd(periods, period_count); //return the greates common divisor of the periods
 } 
