@@ -14,6 +14,6 @@ add_executable(TI_301_PJT
         stack.c
         tarjan.c
         matrix.c
-        matrix.h
         bonus.c
+        hasse.c
 )
