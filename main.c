@@ -49,7 +49,7 @@ int main() {
     t_link_array links;
     Linkslist(partition, adj, vertex_to_class, &links);
     graphCharacteristics(partition, &links);
-
+    mermaidHasse(partition, &links);
     free(vertex_to_class);
     free(links.links);
     printf("-------------------------------\n");
