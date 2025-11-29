@@ -189,15 +189,49 @@ int main() {
     printf("\nRow vector Π(0):\n\n");
     displayRowVector(rowVector);
 
+    // This part was produced by Gemini 3 pro
+    FILE *fp = fopen("distribution.csv", "w");
+    if (fp) {
+        fprintf(fp, "n");
+        for(int k=0; k < rowVector->nbcols; k++) fprintf(fp, ",State%d", k);
+        fprintf(fp, "\n");
+
+        fprintf(fp, "0");
+        for(int k=0; k < rowVector->nbcols; k++) fprintf(fp, ",%f", rowVector->data[0][k]);
+        fprintf(fp, "\n");
+    }
+    // End of part produced by Gemini 3 pro
+
     // Π(n+1)=Π(n)P
     // For n=1, Π(1)=Π(0)P.
     // For n=2, Π(2)=Π(0)P^2
     t_matrix *current_matrix_project = prjM;
     printf("\nRow vector Π(1)= Π(0)M:\n\n");
-    displayRowVector(multiplyMatricesIrregular(rowVector,prjM));
+
+    // This part was produced by Gemini 3 pro
+    t_matrix *pi_1 = multiplyMatricesIrregular(rowVector,prjM);
+    displayRowVector(pi_1);
+
+    if (fp) {
+        fprintf(fp, "1");
+        for(int k=0; k < pi_1->nbcols; k++) fprintf(fp, ",%f", pi_1->data[0][k]);
+        fprintf(fp, "\n");
+    }
+    // End of part produced by Gemini 3 pro
+
     for (int i = 1; i < 50; i++) {
         t_matrix *next_matrix_project = multiplyMatrices(current_matrix_project, prjM); //the M^N matrix
-        current_matrix_project = next_matrix_project; // Note: Intermediate matrices should ideally be freed here
+        current_matrix_project = next_matrix_project; 
+
+        // This part was produced by Gemini 3 pro
+        t_matrix *pi_n = multiplyMatricesIrregular(rowVector, current_matrix_project);
+
+        if (fp) {
+            fprintf(fp, "%d", i + 1);
+            for(int k=0; k < pi_n->nbcols; k++) fprintf(fp, ",%f", pi_n->data[0][k]);
+            fprintf(fp, "\n");
+        }
+        // End of part produced by Gemini 3 pro
         
         if (i + 1 == 2) {
             printf("\nRow vector Π(2)= Π(0)M^2:\n\n");
@@ -212,5 +246,7 @@ int main() {
             displayRowVector(multiplyMatricesIrregular(rowVector,current_matrix_project));
         }
     }
+    if (fp) fclose(fp);
+    printf("\nData exported to 'distribution.csv'\n");
     return 0;
 }
