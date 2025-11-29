@@ -24,5 +24,8 @@ void displayMatrix(t_matrix * m);
 t_matrix * subMatrix(t_matrix * matrix, t_partition * part, int compo_index);
 void displayFinalDistribution(t_matrix *converged, int *real_ids, int size);
 void freeMatrix(t_matrix * m);
+t_matrix* createRowVector(int n, int state);
+void displayRowVector(t_matrix * m);
+t_matrix *multiplyMatricesIrregular(t_matrix * M, t_matrix * N);
 
 #endif //INC_2526_TI301_PJT_MATRIX_H

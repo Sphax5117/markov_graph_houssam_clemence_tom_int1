@@ -163,10 +163,11 @@ void addToClass(t_class *C, t_tarjan_vertex *v) {
  * @param graph The graph adjacency list.
  * @param p_num A pointer to the current traversal number counter.
  */
+
 void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, t_partition * partition, t_adjacency_list * graph, int *p_num) {
     v->number = *p_num;
     v->accessnb = *p_num;
-    (*p_num)++;
+    (*p_num)++; //to increase the value, not the adress
     pushStack(v->id, stack);
     v->boolind =1;
     t_cell * current = graph->array[v->id -1].head;
@@ -174,7 +175,7 @@ void parcours(t_tarjan_vertex * v, t_tarjan_vertex * vertices, t_stack * stack, 
     while (current != NULL) {
         printf("Vertex %d -> %d\n", v->id, current->destination);
         w = &vertices[current->destination]; //current destination -> successor of v.
-        if (w->number == -1) {
+        if (w->number == -1) { //if we didn't visit this node yet
             parcours(w, vertices, stack, partition, graph, p_num);
             if (w->accessnb < v->accessnb) {
                 v->accessnb = w->accessnb;

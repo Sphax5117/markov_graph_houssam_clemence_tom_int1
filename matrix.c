@@ -4,6 +4,43 @@
 #include <stdio.h>
 #include "matrix.h"
 
+
+t_matrix* createRowVector(int n, int state) {
+    /**
+     * @brief Creates an a row vector Π(0) with zero everywhere except at the state
+    * @param n int : The size of the initiale matrix
+    * @param state int : The state where to put the one
+    * @return t_matrix The vector of size 1*size
+    */
+   t_matrix* result = (t_matrix*)malloc(sizeof(t_matrix));
+    if (result == NULL) {
+        perror("Allocation error for row vector structure");
+        exit(EXIT_FAILURE);
+    }
+    result->nbrows = 1;
+    result->nbcols = n;
+    result->data = malloc(sizeof(float*));
+    if (result->data == NULL) {
+        perror("Allocation error for the rows");
+        free(result); 
+        exit(EXIT_FAILURE);
+    }
+    result->data[0] = calloc(n, sizeof(float));
+    if (result->data[0] == NULL) {
+        perror("Allocation error for the rows");
+        free(result); 
+        exit(EXIT_FAILURE);
+    }
+    if (state < 1 || state > n) {
+        fprintf(stderr, "Invalid state index\n");
+        // handle as you prefer
+    } else {
+        result->data[0][state - 1] = 1.0f;
+    }
+    return result;
+}
+
+
 t_matrix* createEmptyMatrix(int n) {
     /**
      * @brief Creates an empty matrix of size n*n, filled with 0. 
@@ -22,6 +59,7 @@ t_matrix* createEmptyMatrix(int n) {
 
     result->nbrows = n;
     result->nbcols = n;
+    
 
     //we allocate memory for each data space 
     result->data = (float**)malloc(n * sizeof(float*));
@@ -129,6 +167,9 @@ t_matrix *multiplyMatrices(t_matrix * M, t_matrix * N) {
     }
 
 
+
+
+
 float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
     /**
      * @brief This function calculate the difference between two matrices, using the formula : Sum(i)Sum(j)(|A_ij - B_ij|)
@@ -150,6 +191,8 @@ float matrixDifference(t_matrix * matrixA, t_matrix * matrixB) {
     return result;
 }
 
+
+
 /**
  * @brief Displays the matrix to the standard output.
  *
@@ -167,6 +210,73 @@ void displayMatrix(t_matrix * m){
         }
         printf("|\n");
     }
+    printf("\n");
+    return;
+}
+
+t_matrix *multiplyMatricesIrregular(t_matrix * M, t_matrix * N) {
+    /**
+     * @brief This function multiplies two matrices (matrix multiplication from Linear Algebra)
+     *        handling cases where matrices are not necessarily square (n*n).
+     * @param M * t_matrix : the first matrix (size A x B)
+     * @param N * t_matrix : the second matrix (size B x C)
+     * @return t_matrix* : the result of the multiplication (size A x C)
+     */
+    if (M->nbcols != N->nbrows) {
+        fprintf(stderr, "Error: Matrices are not compatible for multiplication (M cols != N rows).\n");
+        exit(EXIT_FAILURE);
+    }
+
+    int rows = M->nbrows;
+    int cols = N->nbcols;
+    int common = M->nbcols; // same as N->nbrows
+
+    // Manually allocate result matrix since createEmptyMatrix assumes n*n
+    t_matrix* R = (t_matrix*)malloc(sizeof(t_matrix));
+    if (R == NULL) {
+        perror("Allocation error for result matrix structure");
+        exit(EXIT_FAILURE);
+    }
+    R->nbrows = rows;
+    R->nbcols = cols;
+    R->data = (float**)malloc(rows * sizeof(float*));
+    if (R->data == NULL) {
+        perror("Allocation error for result matrix rows");
+        free(R);
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < rows; i++) {
+        R->data[i] = (float*)calloc(cols, sizeof(float));
+        if (R->data[i] == NULL) {
+            perror("Allocation error for result matrix data");
+            // Cleanup previously allocated rows
+            for (int k = 0; k < i; k++) free(R->data[k]);
+            free(R->data);
+            free(R);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Perform multiplication
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double sum = 0.0;
+            for (int k = 0; k < common; k++) {
+                sum += (double)M->data[i][k] * (double)N->data[k][j];
+            }
+            R->data[i][j] = (float)sum;
+        }
+    }
+    return R;
+}
+
+void displayRowVector(t_matrix * m){
+    int n = m->nbcols;
+    for (int j = 0; j < n; j++) {
+        printf("| %6.2f ", m->data[0][j]);
+    }
+    printf("|\n");
     printf("\n");
     return;
 }

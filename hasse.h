@@ -23,8 +23,7 @@ void addLink(t_link_array *la, int from, int to);
 
 void createvertextoclass(t_partition *p, int *vertextoclass, int nb_vertices);
 //Creer un tableau qui indique la class pour chaque vertex
-void Linkslist(t_partition *p, t_adjacency_list *graph,
-                 int *vertextoclass, t_link_array *links);
+void Linkslist(t_partition *p, t_adjacency_list *graph, int *vertextoclass, t_link_array *links);
 //pseudocode du pro:For each vertex i in the graph
 //   Ci = class to which i belongs
 //   For all vertices j in adjacency list of vertex i
